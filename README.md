@@ -1,4 +1,5 @@
 ## Reserve-Sys-SQLite
+[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリの派生ver（`prisma`×`SQLite`）<br><br>
 任意の部屋数を用意するとともに、各部屋ごとの予約を視覚的に把握及び管理・編集できる「会議室予約システムUI」です。<br>`prisma`×`SQLite`で予約内容をビルトインのデータベースに保存・管理する仕様にしています。<br>
 
 - `src/app/types/rooms-atom.ts`<br>部屋数と予約可能時間の設定ファイル
