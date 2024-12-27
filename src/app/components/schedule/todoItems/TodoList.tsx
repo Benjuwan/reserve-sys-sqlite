@@ -63,7 +63,11 @@ function TodoList({ todoID }: { todoID: string }) {
                                         </div> :
                                         <div className={todoStyle.isMobileNotice}>
                                             {todoItem.rooms &&
-                                                <p>［{todoItem.rooms}］</p>
+                                                <span>［{
+                                                    todoItem.rooms.includes('：') ?
+                                                        todoItem.rooms.split('：')[1] :
+                                                        todoItem.rooms
+                                                }］</span>
                                             }
                                             {todoItem.todoContent.length > 4 ?
                                                 <p>{todoItem.todoContent.slice(0, 4)}...</p> :
