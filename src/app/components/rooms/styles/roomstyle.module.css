@@ -1,0 +1,90 @@
+.roomContainer {
+    margin-bottom: 1em;
+    padding: 1em;
+    background-color: #f5f5f5;
+}
+
+.roomContainer ul {
+    list-style: none;
+    display: flex;
+
+    & li {
+        border: 1px solid #dadada;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        flex-flow: row wrap;
+        width: 100%;
+
+        & span {
+            display: block;
+            width: 100%;
+            line-height: 1.5;
+            border-bottom: 1px solid #dadada;
+            padding-left: .5em;
+        }
+
+        & .minBlocks {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+
+            & div {
+                width: 1px;
+
+                &[data-reserved=true] {
+                    background-color: #b6f7ba;
+                }
+
+                &:nth-of-type(15n+15) {
+                    border-left: 1px dotted #333;
+                }
+            }
+        }
+    }
+}
+
+.roomContainer p {
+    font-weight: bold;
+    font-size: 1.4rem;
+    border-left: 4px solid #333;
+    padding-left: .25em;
+    margin-bottom: .25em;
+}
+
+.timeScheduleWrapper {
+    overflow-x: scroll;
+}
+
+.timeScheduleWrapper ul {
+    width: calc(100vw * 1.6);
+}
+
+/* minBlocks div の間隔調整のために 560px で指定 */
+@media screen and (min-width: 560px) {
+    .timeScheduleWrapper {
+        & ul {
+            width: 100%;
+
+            & li {
+                height: 50px;
+
+                & .minBlocks {
+                    & div {
+                        width: 1.25px;
+                    }
+                }
+            }
+        }
+    }
+
+    .roomContainer p {
+        font-size: 14px;
+    }
+}
+
+@media screen and (min-width: 1080px) {
+    .timeScheduleWrapper {
+        overflow-x: unset;
+    }
+}
