@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+datasource db {
+  provider = "sqlite"         // 使用するDBの種類を指定（今回はSQLite）
+  url      = "file:./dev.db"  // プロジェクト内の dev.db をデータベースの参照URLとして設定
+}
+
+generator client {
+  provider = "prisma-client-js" // Prismaクライアントを生成するためのライブラリを指定
+}
+
+// データベースのテーブル内容とリンクさせるための設定
+model Reservation {
+  id          String   @id @default(uuid()) // 主キーの指定（UUID）
+  todoID      String                        // 日付 (yyyy/mm/d)
+  todoContent String                        // 予約内容
+  edit        Boolean  @default(false)
+  pw          String                        // 編集可否パスワード
+  rooms       String                        // 予約会議室名
+  startTime   String                        // 開始時間 (hh:mm)
+  finishTime  String                        // 終了時間 (hh:mm)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
