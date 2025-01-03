@@ -22,7 +22,7 @@ function DaysList({ props }: { props: DaysListType }) {
     const { days, present } = props;
 
     const isNotPastDays: (day: calendarItemType) => boolean = (day: calendarItemType) => {
-        const dayDate: number = parseInt(`${day.year}${day.month.toString().padStart(2, '0')}${day.day.toString().padStart(2, '0')}`);
+        const dayDate: number = parseInt(`${day.year}${day.month}${day.day}`);
         return dayDate >= present;
     }
 
