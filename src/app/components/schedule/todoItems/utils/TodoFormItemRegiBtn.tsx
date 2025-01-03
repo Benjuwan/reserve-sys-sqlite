@@ -40,6 +40,15 @@ function TodoFormItemRegiBtn({ todoItems, resetStates }: {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [todoItems]);
 
+    // 編集後に edit:true のままだと誰でも編集できてしまうので false に上書き（＝再編集を行うには再度パスワード入力が必要となる）
+    const adjustEditState_updateTodoItem: (todoItems: todoItemType) => void = (todoItems: todoItemType) => {
+        const adjustEditStateTodoItems: todoItemType = {
+            ...todoItems,
+            edit: false
+        }
+        updateTodoItem(adjustEditStateTodoItems);
+    }
+
     return (
         <button className={todoStyle.formBtns} id={todoStyle.regiUpdateBtn}
             type="button"
@@ -56,7 +65,7 @@ function TodoFormItemRegiBtn({ todoItems, resetStates }: {
                     handleOpenClosedBtnClicked(btnEl.currentTarget);
                 } else {
                     btnEl.stopPropagation(); // 親要素のクリックイベント（OnViewModalWindow）発生を防止
-                    updateTodoItem(todoItems);
+                    adjustEditState_updateTodoItem(todoItems);
                     closeModalWindow();
                 }
                 resetStates();
