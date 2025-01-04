@@ -47,7 +47,6 @@ function Calendar() {
                     deleteReservation(memo.id);
                 }
             });
-
             /* 当日以降の予定のみスケジュールとして管理・把握 */
             setTodoMemo(exceptPastTodoMemos);
         }
@@ -82,10 +81,7 @@ function Calendar() {
             <button id={calendarStyle["jumpThisMonth"]} type="button" onClick={jumpThisMonth}>今月に移動</button>
             <ul className={calendarStyle.calendar}>
                 <DaydateList days={days} />
-                <DaysList props={{
-                    days: days,
-                    present: present
-                }} />
+                <DaysList days={days} />
             </ul>
         </section>
     );

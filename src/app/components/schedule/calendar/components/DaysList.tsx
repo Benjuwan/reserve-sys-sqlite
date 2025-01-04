@@ -7,23 +7,24 @@ import TodoCtrlOpenBtn from "../../todoItems/TodoCtrlOpenBtn";
 import TodoForm from "../../todoItems/TodoForm";
 import TodoList from "../../todoItems/TodoList";
 
-type DaysListType = {
-    days: calendarItemType[];
-    present: number;
-}
-
 type todaySignal = {
     thisYear: number;
     thisMonth: number;
     today: number;
 }
 
-function DaysList({ props }: { props: DaysListType }) {
-    const { days, present } = props;
-
+function DaysList({ days }: { days: calendarItemType[] }) {
     const isNotPastDays: (day: calendarItemType) => boolean = (day: calendarItemType) => {
-        const dayDate: number = parseInt(`${day.year}${day.month}${day.day}`);
-        return dayDate >= present;
+        const dayDate_adjustDigitMonth: string | number = day.month.toString().length === 1 ? `0${day.month}` : day.month;
+        const dayDate_adjustDigitDay: string | number = String(day.day).length === 1 ? `0${day.day}` : day.day;
+        const dayDate: number = parseInt(`${day.year}${dayDate_adjustDigitMonth}${dayDate_adjustDigitDay}`);
+
+        const theDate: Date = new Date();
+        const theDate_adjustDigitMonth: string | number = String(theDate.getMonth() + 1).length === 1 ? `0${theDate.getMonth() + 1}` : theDate.getMonth() + 1;
+        const theDate_adjustDigitDay: string | number = String(theDate.getDate()).length === 1 ? `0${theDate.getDate()}` : theDate.getDate();
+        const date: number = parseInt(`${theDate.getFullYear()}${theDate_adjustDigitMonth}${theDate_adjustDigitDay}`);
+
+        return dayDate >= date;
     }
 
     const today: todaySignal = useMemo(() => {
