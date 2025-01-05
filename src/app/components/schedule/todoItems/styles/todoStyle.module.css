@@ -267,6 +267,7 @@ ul.todoLists {
             & input[type="text"] {
                 display: block;
                 padding-left: .25em;
+                font-size: 16px;
             }
         }
     }
