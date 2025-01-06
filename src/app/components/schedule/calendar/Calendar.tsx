@@ -7,10 +7,10 @@ import { todoItemType } from "../todoItems/ts/todoItemType";
 import { useAtom } from "jotai";
 import { fetchTodoMemoAtom, isDesktopViewAtom, todoMemoAtom } from "@/app/types/calendar-atom";
 import PrevNextMonthBtns from "./components/PrevNextMonthBtns";
-import { useGetMonthDays } from "./hooks/useGetMonthDays";
-import { useDeleteTodoItem } from "../todoItems/hooks/useDeleteTodoItem";
 import DaydateList from "./components/DaydateList";
 import DaysList from "./components/DaysList";
+import { useGetMonthDays } from "./hooks/useGetMonthDays";
+import { useDeleteTodoItem } from "../todoItems/hooks/useDeleteTodoItem";
 
 function Calendar() {
     const [, setDesktopView] = useAtom(isDesktopViewAtom);
