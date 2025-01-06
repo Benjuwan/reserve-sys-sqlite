@@ -1,8 +1,11 @@
+import Image from "next/image";
 import { SyntheticEvent, memo } from "react";
 import todoStyle from "./styles/todoStyle.module.css";
 import { calendarItemType } from "../calendar/ts/calendarItemType";
 import { useScrollTop } from "@/app/hooks/useScrollTop";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
+
+import add_circle from "../../../../../public/icons/add_circle.svg";
 
 function TodoCtrlOpenBtn({ day }: { day: calendarItemType }) {
     const checkFutureMonthes: () => boolean = () => {
@@ -32,7 +35,9 @@ function TodoCtrlOpenBtn({ day }: { day: calendarItemType }) {
     return (
         <button className={`${todoStyle.openBtn} todoCtrlOpen`}
             onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => handleOpenClosedBtnClicked(btnEl.currentTarget)}>
-            <span className="material-symbols-outlined">add_circle</span>
+            <span>
+                <Image src={add_circle} alt="登録フォーム表示ボタン" />
+            </span>
         </button>
     );
 }

@@ -1,5 +1,9 @@
+import Image from "next/image";
 import { memo } from "react";
 import { useScrollTop } from "@/app/hooks/useScrollTop";
+
+import chevron_left from "../../../../../../public/icons/chevron_left.svg";
+import chevron_right from "../../../../../../public/icons/chevron_right.svg";
 
 type btnsPropsType = {
     className: string;
@@ -14,7 +18,8 @@ const btnStyle: object = {
 }
 
 const btnIconStyle: object = {
-    'verticalAlign': 'middle'
+    'verticalAlign': 'middle',
+    'filter': 'brightness(3)'
 }
 
 function PrevNextMonthBtns({ props }: { props: btnsPropsType }) {
@@ -46,11 +51,11 @@ function PrevNextMonthBtns({ props }: { props: btnsPropsType }) {
 
     return (
         <div className={className}>
-            <button type="button" style={btnStyle} onClick={prevCalendarView}><span className="material-symbols-outlined" style={btnIconStyle}>
-                navigate_before
+            <button type="button" style={btnStyle} onClick={prevCalendarView}><span style={btnIconStyle}>
+                <Image src={chevron_left} alt="前月ボタン" />
             </span></button>
-            <button type="button" style={btnStyle} onClick={nextCalendarView}><span className="material-symbols-outlined" style={btnIconStyle}>
-                navigate_next
+            <button type="button" style={btnStyle} onClick={nextCalendarView}><span style={btnIconStyle}>
+                <Image src={chevron_right} alt="次月ボタン" />
             </span></button>
         </div>
     );

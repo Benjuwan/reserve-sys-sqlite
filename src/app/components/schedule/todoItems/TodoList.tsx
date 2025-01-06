@@ -25,7 +25,6 @@ function TodoList({ todoID }: { todoID: string }) {
                 const behindStartTime = parseInt(behind.startTime.replace(':', ''));
                 return aheadStartTime - behindStartTime;
             }
-
             // else の場合は（0を返して）順序変更なし
             return 0;
         });
@@ -50,11 +49,12 @@ function TodoList({ todoID }: { todoID: string }) {
                                                 <p className={todoStyle.editTargetStr}>{todoItem.todoContent}</p>
                                             }
                                             {todoItem.rooms &&
-                                                <span>［{
+                                                // （&#91; = [）/（&#93; = ]）
+                                                <span>&#91;{
                                                     todoItem.rooms.includes('：') ?
                                                         todoItem.rooms.split('：')[1] :
                                                         todoItem.rooms
-                                                }］</span>
+                                                }&#93;</span>
                                             }
                                             {(todoItem.startTime && todoItem.finishTime) ?
                                                 <span>{todoItem.startTime} ～ {todoItem.finishTime}</span>
@@ -63,11 +63,11 @@ function TodoList({ todoID }: { todoID: string }) {
                                         </div> :
                                         <div className={todoStyle.isMobileNotice}>
                                             {todoItem.rooms &&
-                                                <span>［{
+                                                <span>&#91;{
                                                     todoItem.rooms.includes('：') ?
                                                         todoItem.rooms.split('：')[1] :
                                                         todoItem.rooms
-                                                }］</span>
+                                                }&#93;</span>
                                             }
                                             {todoItem.todoContent.length > 4 ?
                                                 <p>{todoItem.todoContent.slice(0, 4)}...</p> :
