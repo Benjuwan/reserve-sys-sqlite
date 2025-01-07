@@ -357,7 +357,7 @@ ul.todoLists {
         }
 
         & .todoCtrlElm {
-            padding: 5em;
+            padding: 5em calc(100vw/4);
         }
     }
 

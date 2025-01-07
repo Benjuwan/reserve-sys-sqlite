@@ -59,34 +59,34 @@ useEffect(() => {
 `Prisma`の設定フロー<br>各フローの補足説明は[こちら（4. データの永続化をする | 【図解解説】これ1本でGraphQLをマスターできるチュートリアル【React/TypeScript/Prisma】）](https://qiita.com/Sicut_study/items/13c9f51c1f9683225e2e#4-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B0%B8%E7%B6%9A%E5%8C%96%E3%82%92%E3%81%99%E3%82%8B)が詳しい。
 
 1. `Prisma`のインストール
-```
+```bash
 npm install prisma @prisma/client
 npm install @prisma/client
 ```
 
 2. `Prisma`の初期化
-```
+```bash
 npx prisma init
 ```
 
 3. マイグレーションの実行
-```
+```bash
 npx prisma migrate dev --name init
 ```
 
 4. クライアントの生成
-```
+```bash
 npx prisma generate
 ```
 
 ### `.env`と`.env.local`の設定
 - `.env`
-```
+```bash
 DATABASE_URL="file:./dev.db"
 ```
 
 - `.env.local`
-```
+```bash
 # 本番環境ではホスティング先のURLを指定
 NEXT_PUBLIC_API_URL="http://localhost:3000/"
 ```
@@ -155,7 +155,7 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 `GUI`でテーブル操作できる機能
 
 - `npx prisma studio`で起動
-```
+```bash
 npx prisma studio
 ```
 

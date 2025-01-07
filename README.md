@@ -33,7 +33,7 @@ SQLiteはシングルファイルデータベースのため、破損した場�
 - eslint-config-next@15.1.1
 - eslint@8.57.1
 - jotai@2.10.0
-- next@15.1.1
+- next@15.1.3
 - prisma@6.1.0
 - react-dom@19.0.0
 - react@19.0.0
@@ -41,5 +41,11 @@ SQLiteはシングルファイルデータベースのため、破損した場�
 - uuid@10.0.0
 
 ## 備考
+- `.env.local`を用意
+```bash
+## NEXT_PUBLIC を前置した環境変数はクライアントサイドに露出する 
+NEXT_PUBLIC_API_URL=http://localhost:3000/
+```
+
 - `src\app\components\schedule\calendar\Calendar.tsx`
 当日以前の過去予約分は上記コンポーネント内の`deleteReservation`メソッドで削除
