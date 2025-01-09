@@ -202,6 +202,15 @@ npx prisma generate
   - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）
     - ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
 
+> [!NOTE]  
+> - 上記フローを経ても予約登録機能が動かない場合<br>
+> 異なる開発環境（別PC）に更新内容を反映させる場合の注意事項です。<br>
+> 上記フローを経て、`git pull origin main`で当該リモートリポジトリと整合性を取ったのに**予約登録機能が動かない**場合は以下のコマンドを`ターミナル`で打つ。<br>WindowsPCでコマンドを実行した際に権限上のエラーが発生した場合は`コマンドプロンプト`で再度試してみる。
+> ```bash
+> # Prismaクライアントを更新して新しいスキーマを反映
+> npx prisma generate
+> ```
+
 ## 参照
 ### prisma
 - [【Next.js】Prismaを使ってみる](https://www.sddgrp.co.jp/blog/technology/use-next-jsprisma/)
@@ -262,27 +271,3 @@ const [fetchTodoMemo] = useAtom(fetchTodoMemoAtom);
 1. フェッチ処理が実行される
 2. データが取得できるまでの間は undefined または Promise の状態になる
 3. データ取得完了後、取得したデータで状態が更新される
-
-### `vercel`デプロイ時に`prisma`起因のエラー
-- `prisma`起因のエラー
-`vercel`の「`Node.js`の依存関係をキャッシュ」する働きによって「古い`Prisma Client`が使用されてしまって」デプロイエラーになっていた。（＝`Prisma Client`の自動生成が正しく実行されていなかった）
-
-```
-Error [PrismaClientInitializationError]: Prisma has detected that this project was built on Vercel, which caches dependencies. This leads to an outdated Prisma Client because Prisma's auto-generation isn't triggered. To fix this, make sure to run the `prisma generate` command during the build process.
-```
-
-- 解決策
-`build`時に`prisma generate`で`Prisma Client`を新規制作するように変更する
-
-```diff
-{
-  "scripts": {
-    "dev": "next dev",
--   "build": "next build",
-+   "build": "prisma generate && next build",
-    ...
-    ..
-    .
-  }
-}
-```
