@@ -38,10 +38,11 @@ function TodoList({ todoID }: { todoID: string }) {
                         <Fragment key={todoItem.id}>
                             {/* yyyy/MM/dd が一致した場合 */}
                             {todoItem.todoID === todoID ?
-                                <li onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
-                                    OnViewModalWindow(liElm.currentTarget);
-                                    scrollTop();
-                                }}>
+                                <li className={todoStyle.todoList}
+                                    onClick={(liElm: SyntheticEvent<HTMLLIElement>) => {
+                                        OnViewModalWindow(liElm.currentTarget);
+                                        scrollTop();
+                                    }}>
                                     {desktopView ?
                                         <div className={todoStyle.editTargetContent}>
                                             {todoItem.todoContent.length > 6 ?

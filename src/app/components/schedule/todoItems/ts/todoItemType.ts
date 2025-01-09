@@ -4,6 +4,7 @@ export type todoItemType = {
     todoContent: string;
     edit: boolean;
     pw: string;
+    person?: string;
     rooms?: string;
     startTime?: string;
     finishTime?: string;

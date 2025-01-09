@@ -1,17 +1,22 @@
-# メモ・雑記
 ## メモ
 - `Route Handlers`は**クライアントコンポーネントから呼び出す**
 
-## 雑記
-- SQLiteはアプリケーション内に用意でき、ファイルベースとなっているので簡単に利用が可能です。
-- マイグレートとは今設定した内容を実際のデータベースに反映させる作業です。
-- migratitonsの中にはマイグレートの履歴のようなものが残っています。
-- dev.db：DBの情報を保持しているファイル
+### `Route Handler`
+- `src/app/api/reservations/route.ts`
+  - CRUD操作のためのAPIエンドポイント
+  - POST, PUT, DELETEメソッドの実装
 
-- Prismaはデータベースとのやり取りを簡単にするツールです。ORMとして使われます。ORMとはデータベースのテーブルをオブジェクトとして操作できる技術で、SQLを書かなくてもJavaScriptのコードだけでデータベース操作ができるようになります。
-- SQLiteは軽量で組み込み型のリレーショナルデータベースです。アプリの中でデータベースを持てるので外部にサーバーを立てる必要がありません。小規模なプロジェクトでよく使われます。
+## SQLite
+- 特徴
+  - アプリケーション内に用意でき、ファイルベースとなっているので簡単に利用が可能。
+  - 軽量で組み込み型のリレーショナルデータベース。アプリの中でデータベースを持てるので外部にサーバーを立てる必要がない。モックやプロトタイプ、小規模なプロジェクトでよく使用される。
 
-## 各部屋データ（内部ファイル）のデータフェッチ（を行う場合）
+## Prisma
+- データベースとのやり取りを簡単にする`ORM`というツール。`ORM`とはデータベースのテーブルをオブジェクトとして操作できる技術で、`SQL`を書かなくても`JavaScript`（`TypeScript`）のコードだけでデータベース操作ができるようになる。
+- `prisma/migratitons`フォルダの中にはマイグレート（設定した内容を実際のデータベースに反映させる作業）の履歴のようなものが残る。
+- `dev.db`：DBの情報を保持しているファイル
+
+## 内部ファイルとして各部屋データのデータフェッチを行う場合
 - `public`dir をプロジェクトファイル直下に用意し、そのファイル内にフェッチ用データを置く
 ```
 - public
@@ -146,11 +151,6 @@ export const prisma = globalForPrisma.prisma || new PrismaClient();
 if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 ```
 
-### `Route Handler`
-- `src/app/api/reservations/route.ts`
-  - CRUD操作のためのAPIエンドポイント
-  - POST, PUT, DELETEメソッドの実装
-
 ### prisma studio
 `GUI`でテーブル操作できる機能
 
@@ -159,29 +159,25 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 npx prisma studio
 ```
 
-### `vercel`デプロイ時に`prisma`起因のエラー
-- `prisma`起因のエラー
-`vercel`の「`Node.js`の依存関係をキャッシュ」する働きによって「古い`Prisma Client`が使用されてしまって」デプロイエラーになっていた。（＝`Prisma Client`の自動生成が正しく実行されていなかった）
+## データベースの仕様（テーブル）更新
+登録内容を変更したい場合、以下の各種ファイルを調整する必要がある。
+- `prisma/schema.prisma`<br>`model`オブジェクトの内容を編集（登録内容を追加・削除）
+- `prisma/schema.prisma`の`model`オブジェクト編集後、以下のコマンドをターミナルに打つ
+```bash
+# マイグレーションファイルを作成し、データベースに変更を適用
+npx prisma migrate dev --name what_you_changed # --name 以降は任意の命名
 
+# Prismaクライアントを更新して新しいスキーマを反映
+npx prisma generate
 ```
-Error [PrismaClientInitializationError]: Prisma has detected that this project was built on Vercel, which caches dependencies. This leads to an outdated Prisma Client because Prisma's auto-generation isn't triggered. To fix this, make sure to run the `prisma generate` command during the build process.
-```
-
-- 解決策
-`build`時に`prisma generate`で`Prisma Client`を新規制作するように変更した。
-
-```diff
-{
-  "scripts": {
-    "dev": "next dev",
--   "build": "next build",
-+   "build": "prisma generate && next build",
-    ...
-    ..
-    .
-  }
-}
-```
+  - `prisma/dev.db-journal`<br>`dev.db-journal`という`SQLite`の内部処理用ファイルが生成されるが自動的に生成・削除されるので無視していて良い（`dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している）
+- `src/app/components/schedule/todoItems/ts/todoItemType.ts`<br>登録内容の型情報を編集
+- `src/app/components/schedule/todoItems/TodoForm.tsx`
+  - `todoItems`ステートとして扱う`initTodoItems`の初期設定オブジェクトを編集（当該登録内容：オブジェクトにプロパティ・キーを追加・削除）
+  - （変更した）当該登録内容に関する入力フォームを（`src/app/components/schedule/todoItems/utils`配下に）用意または調整
+- `src/app/api/reservations/`配下の`Route Handler`の登録内容を編集
+  - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）
+    - ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
 
 ## 参照
 ### prisma
@@ -201,7 +197,8 @@ Error [PrismaClientInitializationError]: Prisma has detected that this project w
 [ESLint A && B, A || C が no-unused-expressions のエラーになる](https://chaika.hatenablog.com/entry/2024/09/28/083000#google_vignette)
 
 ## 備忘録
-- カスタムフックの呼び出し場所に注意（しないと`ESLint`でエラーが出る）
+### カスタムフックの呼び出し場所に注意
+- `ESLint`でエラーが発生する
 ```diff
 export const usePrevNextDays = () => {
 +    // OK：領域外でカスタムフックを呼び出す
@@ -242,3 +239,27 @@ const [fetchTodoMemo] = useAtom(fetchTodoMemoAtom);
 1. フェッチ処理が実行される
 2. データが取得できるまでの間は undefined または Promise の状態になる
 3. データ取得完了後、取得したデータで状態が更新される
+
+### `vercel`デプロイ時に`prisma`起因のエラー
+- `prisma`起因のエラー
+`vercel`の「`Node.js`の依存関係をキャッシュ」する働きによって「古い`Prisma Client`が使用されてしまって」デプロイエラーになっていた。（＝`Prisma Client`の自動生成が正しく実行されていなかった）
+
+```
+Error [PrismaClientInitializationError]: Prisma has detected that this project was built on Vercel, which caches dependencies. This leads to an outdated Prisma Client because Prisma's auto-generation isn't triggered. To fix this, make sure to run the `prisma generate` command during the build process.
+```
+
+- 解決策
+`build`時に`prisma generate`で`Prisma Client`を新規制作するように変更する
+
+```diff
+{
+  "scripts": {
+    "dev": "next dev",
+-   "build": "next build",
++   "build": "prisma generate && next build",
+    ...
+    ..
+    .
+  }
+}
+```
