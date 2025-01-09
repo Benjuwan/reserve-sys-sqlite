@@ -4,28 +4,45 @@
 
 - `src/app/types/rooms-atom.ts`<br>部屋数と予約可能時間の設定ファイル
 
-## 注意事項
-`SQLite`はあくまで開発環境用で、本番環境で機能させるには特定のデータベースや`BaaS`などを使うべきです。
+### 仕様紹介
+以下の仕様に関しては[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリと同様です。<br><br>
 
-- `SQLite`が本番環境に向かない理由
-1. ファイルベースの構造<br>
-サーバーレス環境（例: Vercel）では、各リクエストごとに独立したインスタンスが生成されるため、ローカルファイル（SQLiteデータベース）に永続的なデータを保存できません。
+- 予約内容の重複禁止<br>他の方が先に予約している場合は受け付けません。
+- 予約時間外は受付不可<br>今月かつ「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。また、タイムテーブルには当日分の予約内容が反映されます。<br>※：`src/app/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
+- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/app/components/schedule/calendar/Calendar.tsx`内の`useEffect`での`deleteReservation`処理にて実行
 
-2. スケーラビリティの問題<br>
-SQLiteは複数の同時接続に対して弱く、大規模なアプリケーションには不向きです。<br>読み取り操作は高速ですが、書き込み操作ではロックが発生しやすいため、パフォーマンスに影響が出る可能性があります。
+#### 予約方法
+<img width="948" alt="スケジュール欄の日付にあるアイコンをクリック" src="https://github.com/user-attachments/assets/38353bee-9797-4b3d-a228-70ec86d01b84" />
 
-3. クラウドインフラとの相性<br>
-クラウドホスティング（VercelやAWS Lambdaなど）の多くが揮発性ストレージを持つため、SQLiteのデータベースファイルがリクエスト終了時に消去されるリスクがあります。
+- スケジュール欄の日付にあるアイコンをクリック
 
-4. データの整合性とバックアップ<br>
-SQLiteはシングルファイルデータベースのため、破損した場合にデータ全体が失われるリスクがあります。<br>クラウドデータベースサービスが提供する自動バックアップや復旧機能が使えません。
+---
+<img width="916" alt="表示されたフォーム内の所定項目を選択及び入力" src="https://github.com/user-attachments/assets/8401cc6b-8379-4afb-beff-29a13f8857c2" />
 
+- 表示されたフォーム内の所定項目を選択及び入力
 
-5. 監視とメンテナンス<br>
-パフォーマンスメトリクスの取得が限られています。<br>データベースの状態監視やアラート設定などの運用機能が不足しています。
+---
+<img width="817" alt="登録完了" src="https://github.com/user-attachments/assets/50cf9e66-6519-453a-b325-f67e5a7c4e7a" />
+
+- 登録完了
+
+#### 予約内容の変更
+<img width="816" alt="スケジュール欄の日付にある編集したいタスクをクリックすると上記画面が表示される" src="https://github.com/user-attachments/assets/fb824b3a-98a1-49f4-bc5c-b3149d2e20b3" />
+
+- スケジュール欄の日付にある**編集したいタスクをクリック**すると上記画面が表示される
+
+---
+<img width="802" alt="表示されたフォーム内の所定項目を選択及び入力（編集）" src="https://github.com/user-attachments/assets/b91c0144-22fe-45de-b387-3ab4702c635a" />
+
+- 表示されたフォーム内の所定項目を選択及び入力（編集）
+
+---
+<img width="804" alt="06" src="https://github.com/user-attachments/assets/426a007f-560b-4792-a674-fe07986a98c2" />
+
+- 編集完了
 
 ## 技術構成
-- @prisma/client@6.1.0
+- @prisma/client@6.2.1
 - @types/node@20.16.11
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
@@ -34,7 +51,7 @@ SQLiteはシングルファイルデータベースのため、破損した場�
 - eslint@8.57.1
 - jotai@2.10.0
 - next@15.1.3
-- prisma@6.1.0
+- prisma@6.2.1
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.6.2
@@ -53,6 +70,11 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/
 # npx prisma studio で起動
 npx prisma studio
 ```
+  - `prisma`のアップデートコマンド
+  ```bash
+  npm i --save-dev prisma@latest
+  npm i @prisma/client@latest 
+  ```
 
 - `src\app\components\schedule\calendar\Calendar.tsx`
 当日以前の過去予約分は上記コンポーネント内の`deleteReservation`メソッドで削除
