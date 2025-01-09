@@ -47,5 +47,12 @@ SQLiteはシングルファイルデータベースのため、破損した場�
 NEXT_PUBLIC_API_URL=http://localhost:3000/
 ```
 
+- `prisma studio`
+`GUI`でテーブル操作できる機能
+```bash
+# npx prisma studio で起動
+npx prisma studio
+```
+
 - `src\app\components\schedule\calendar\Calendar.tsx`
 当日以前の過去予約分は上記コンポーネント内の`deleteReservation`メソッドで削除
