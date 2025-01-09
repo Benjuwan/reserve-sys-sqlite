@@ -22,6 +22,7 @@ export async function POST(request: Request) {
       todoContent: data.todoContent,
       edit: data.edit,
       pw: data.pw,
+      person: typeof data.person !== 'undefined' ? data.person : '',
       rooms: typeof data.rooms !== 'undefined' ? data.rooms : '',
       startTime: typeof data.startTime !== 'undefined' ? data.startTime : '',
       finishTime: typeof data.finishTime !== 'undefined' ? data.finishTime : '',
