@@ -47,7 +47,7 @@ SQLiteはシングルファイルデータベースのため、破損した場�
 NEXT_PUBLIC_API_URL=http://localhost:3000/
 ```
 
-- `prisma studio`
+- `prisma studio`<br>
 `GUI`でテーブル操作できる機能
 ```bash
 # npx prisma studio で起動
