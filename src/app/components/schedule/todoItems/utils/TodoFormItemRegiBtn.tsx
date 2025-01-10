@@ -31,7 +31,7 @@ function TodoFormItemRegiBtn({ todoItems, resetStates }: {
             (typeof todoItems.finishTime !== 'undefined' &&
                 checkTimeSchedule(todoItems.finishTime, todoItems))
         ) {
-            alert('他の方が既に予約済みです | TFI-RegiBtn');
+            alert('他の方が既に予約済みです | aCode:003');
             return true;
         }
 
@@ -56,7 +56,7 @@ function TodoFormItemRegiBtn({ todoItems, resetStates }: {
             onClick={(btnEl: SyntheticEvent<HTMLButtonElement>) => {
                 const isCheckDuplicateTime: boolean = checkDuplicateTimeSchedule(todoItems);
                 if (isCheckDuplicateTime) {
-                    alert('希望予約時間が他の予定と重複しています');
+                    alert('希望予約時間が他の予定と重複しています | aCode:003');
                     return;
                 }
 

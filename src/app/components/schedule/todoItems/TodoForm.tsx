@@ -4,8 +4,8 @@ import { useAtom } from "jotai";
 import { roomsAtom } from "@/app/types/rooms-atom";
 import { todoItemType } from "./ts/todoItemType";
 import TodoFormItemContent from "./utils/TodoFormItemContent";
-import TodoFormItemRoom from "./utils/TodoFormItemRoom";
 import TodoFormItemPerson from "./utils/TodoFormItemPerson";
+import TodoFormItemRoom from "./utils/TodoFormItemRoom";
 import TodoFormItemTimeSchedule from "./utils/TodoFormItemTimeSchedule";
 import TodoFormItemPassword from "./utils/TodoFormItemPassword";
 import TodoFormItemRegiBtn from "./utils/TodoFormItemRegiBtn";
@@ -55,7 +55,7 @@ function TodoForm({ props }: { props: TodoFormType }) {
             formElm.preventDefault();
             const isCheckDuplicateTime: boolean = checkDuplicateTimeSchedule(todoItems);
             if (isCheckDuplicateTime) {
-                alert('希望予約時間が他の予定と重複しています');
+                alert('希望予約時間が他の予定と重複しています | aCode:001');
                 return;
             }
 
@@ -70,11 +70,11 @@ function TodoForm({ props }: { props: TodoFormType }) {
             {/* 予約内容 */}
             <TodoFormItemContent todoItems={todoItems} setTodoItems={setTodoItems} />
 
-            {/* 予約室 */}
-            <TodoFormItemRoom rooms={rooms} todoItems={todoItems} setTodoItems={setTodoItems} roomRef={roomRef} />
-
             {/* 予約者／部署名 */}
             <TodoFormItemPerson todoItems={todoItems} setTodoItems={setTodoItems} />
+
+            {/* 予約室 */}
+            <TodoFormItemRoom rooms={rooms} todoItems={todoItems} setTodoItems={setTodoItems} roomRef={roomRef} />
 
             {/* タイムテーブル（スケジュール）*/}
             <TodoFormItemTimeSchedule todoItems={todoItems} setTodoItems={setTodoItems} />

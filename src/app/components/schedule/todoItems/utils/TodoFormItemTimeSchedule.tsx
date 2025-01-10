@@ -21,7 +21,7 @@ function TodoFormItemTimeSchedule({ todoItems, setTodoItems }: {
 
         const isCheckTimeSchedule: boolean = checkTimeSchedule(e, todoItems);
         if (isCheckTimeSchedule) {
-            alert('他の方が既に予約済みです | TFI-TimeSchedule');
+            alert('他の方が既に予約済みです | aCode:002');
             return;
         }
 

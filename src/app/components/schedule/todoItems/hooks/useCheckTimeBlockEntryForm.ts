@@ -61,8 +61,9 @@ export const useCheckTimeBlockEntryForm = () => {
         for (const memo of todoMemo) {
             const isMatchRoom: boolean = typeof todoItems.rooms !== 'undefined' ? memo.rooms === todoItems.rooms : false;
             const isMatchDay: boolean = memo.todoID === todoItems.todoID;
+            const isNotMySelf: boolean = (todoItems.id !== memo.id);
 
-            if (isMatchRoom && isMatchDay) {
+            if (isMatchRoom && isMatchDay && isNotMySelf) {
                 if (
                     typeof todoItems.startTime !== 'undefined' &&
                     typeof todoItems.finishTime !== 'undefined' &&
@@ -73,13 +74,6 @@ export const useCheckTimeBlockEntryForm = () => {
                     const compareStart: number = parseInt(memo.startTime.replace(':', ''));
                     const theFinish: number = parseInt(todoItems.finishTime.replace(':', ''));
                     const compareFinish: number = parseInt(memo.finishTime.replace(':', ''));
-
-                    // 自身が登録した予約時間は検証対象外（編集時の回避措置）
-                    const isSelf_allowOverlapSchedule: boolean = (todoItems.id === memo.id);
-                    if (isSelf_allowOverlapSchedule) {
-                        return false;
-                    }
-
                     isCheckDuplicateTime = theStart < compareStart && compareFinish < theFinish;
                 }
             }
