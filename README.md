@@ -81,6 +81,4 @@ npx prisma studio
   npm i --save-dev prisma@latest
   npm i @prisma/client@latest 
   ```
-
-- `src\app\components\schedule\calendar\Calendar.tsx`
-当日以前の過去予約分は上記コンポーネント内の`deleteReservation`メソッドで削除
+  

@@ -1,7 +1,7 @@
 ## メモ
 - `Route Handlers`は**クライアントコンポーネントから呼び出す**
 
-### `Route Handler`
+### `Route Handlers`
 - `src/app/api/reservations/route.ts`
   - CRUD操作のためのAPIエンドポイント
   - `POST`, `PUT`, `DELETE`メソッドの実装
@@ -173,9 +173,8 @@ if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
 
 ### prisma studio
 `GUI`でテーブル操作できる機能
-
-- `npx prisma studio`で起動
 ```bash
+# `npx prisma studio`で起動
 npx prisma studio
 ```
 
@@ -192,13 +191,13 @@ npx prisma generate
 ```
 
 > [!NOTE]  
-> `prisma/dev.db-journal`<br>`dev.db-journal`という`SQLite`の内部処理用ファイルが生成されるが自動的に生成・削除されるが無視して良い（`dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している）
+> `prisma/dev.db-journal`<br>`dev.db-journal`という`SQLite`の内部処理用ファイルが自動的に生成・削除されるが無視して良い（`dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している）
 
 - `src/app/components/schedule/todoItems/ts/todoItemType.ts`<br>登録内容の型情報を編集
 - `src/app/components/schedule/todoItems/TodoForm.tsx`
   - `todoItems`ステートの初期値である`initTodoItems`オブジェクトを編集（オブジェクトに当該登録内容であるプロパティ・キーを追加・削除）
   - （変更した）当該登録内容に関する入力フォームを（`src/app/components/schedule/todoItems/utils`配下に）用意または調整
-- `src/app/api/reservations/`配下の`Route Handler`の登録内容を編集
+- `src/app/api/reservations/`配下の`Route Handlers`の登録内容を編集
   - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）
     - ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
 
@@ -216,15 +215,8 @@ npx prisma generate
 - [【Next.js】Prismaを使ってみる](https://www.sddgrp.co.jp/blog/technology/use-next-jsprisma/)
 - [Quickstart](https://www.prisma.io/docs/getting-started/quickstart-sqlite)
 - [SQLite](https://www.prisma.io/docs/orm/overview/databases/sqlite)
-- [【図解解説】これ1本でGraphQLをマスターできるチュートリアル【React/TypeScript/Prisma】](https://qiita.com/Sicut_study/items/13c9f51c1f9683225e2e#4-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B0%B8%E7%B6%9A%E5%8C%96%E3%82%92%E3%81%99%E3%82%8B)
 
 ### その他
-- `link`で別ファイルを読み込む方法<br>
-[Next.jsでheadタグの中にlinkでスタイルシート指定をする方法](https://naopoyo.com/docs/how-to-specify-a-stylesheet-with-a-link-tag-in-the-head-tag-in-next-js)# reserve-sys
-
-- `useState`や`useEffect`を抑えて不要な再レンダリングを防ぐ<br>
-[優先度順：Reactの再レンダリング最適化ガイド](https://zenn.dev/any_dev/articles/react-performance-rendering-guide)
-
 - `ESLint`エラー：`Expected an assignment or function call and instead saw an expression`への対処<br>
 [ESLint A && B, A || C が no-unused-expressions のエラーになる](https://chaika.hatenablog.com/entry/2024/09/28/083000#google_vignette)
 
