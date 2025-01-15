@@ -16,51 +16,7 @@
 - `prisma/migratitons`フォルダの中にはマイグレート（設定した内容を実際のデータベースに反映させる作業）の履歴のようなものが残る。
 - `dev.db`：DBの情報を保持しているファイル
 
-## 内部ファイルとして各部屋データのデータフェッチを行う場合
-- `public`dir をプロジェクトファイル直下に用意し、そのファイル内にフェッチ用データを置く
-```
-- public
-  |-  room.json // フェッチ用データ
-- src
-  |- app
-  ...
-  ..
-  .
-- next.config.mjs
-- tsconfig.json
-- README.md
-...
-..
-.
-```
-
-- クライアントコンポーネントでデータフェッチ
-```tsx
-// `src/app/components/rooms/Rooms.tsx`
-
-const [rooms, setRooms] = useAtom(roomsAtom);
-
-useEffect(() => {
-    const fetchRoomsData: () => Promise<void> = async () => {
-        try {
-            /* public/room.json をフェッチ */
-            const res: Response = await fetch("/room.json", { cache: 'no-store' });
-
-        if (!res.ok) {
-            throw new Error('fetch error');
-        }
-
-        const resObj: roomType[] = await res.json();
-        setRooms(resObj);
-        } catch (e) {
-            console.error(e);
-        }
-    }
-    fetchRoomsData();
-}, []);
-```
-
-## prisma × SQLite
+## Prisma × SQLite
 `Prisma`の設定フロー<br>各フローの補足説明は[こちら（4. データの永続化をする | 【図解解説】これ1本でGraphQLをマスターできるチュートリアル【React/TypeScript/Prisma】）](https://qiita.com/Sicut_study/items/13c9f51c1f9683225e2e#4-%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E6%B0%B8%E7%B6%9A%E5%8C%96%E3%82%92%E3%81%99%E3%82%8B)が詳しい。
 
 1. `Prisma`のインストール
@@ -138,8 +94,6 @@ model Reservation {
   - グローバルな状態での`Prisma`クライアントの再利用を確保
 
 ```ts
-// `src/lib/prisma.ts`
-
 /* クライアントで prisma を通じてデータベースを操作・利用するための機能をインポート */
 import { PrismaClient } from '@prisma/client';
 
@@ -176,7 +130,7 @@ npx prisma generate
 ```
 
 > [!NOTE]  
-> `prisma/dev.db-journal`<br>`dev.db-journal`という`SQLite`の内部処理用ファイルが自動的に生成・削除されるが無視して良い（`dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している）
+> - `prisma/dev.db-journal`<br>`dev.db-journal`という設定中のデータベース（今回は`SQLite`）の内部処理用ファイルが自動的に生成・削除されるが無視して構わない。<br>`dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している。
 
 - `src/app/components/schedule/todoItems/ts/todoItemType.ts`<br>登録内容の型情報を編集
 - `src/app/components/schedule/todoItems/TodoForm.tsx`
@@ -189,7 +143,7 @@ npx prisma generate
 > [!NOTE]  
 > - 上記フローを経ても予約登録機能が動かない場合<br>
 > 異なる開発環境（別PC）に更新内容を反映させる場合の注意事項です。<br>
-> 上記フローを経て、`git pull origin main`で当該リモートリポジトリと整合性を取ったのに**予約登録機能が動かない**場合は以下のコマンドを`ターミナル`で打つ。<br>WindowsPCでコマンドを実行した際に権限上のエラーが発生した場合は`コマンドプロンプト`で再度試してみる。
+> 上記フローを経て、`git pull origin main`で当該リモートリポジトリと整合性を取ったのに**予約登録機能が動かない**場合は以下のコマンドを`ターミナル`で打つ。<br> WindowsPC でコマンドを実行した際に権限上のエラーが発生した場合は`コマンドプロンプト`で再度試してみる。
 > ```bash
 > # Prismaクライアントを更新して新しいスキーマを反映
 > npx prisma generate
@@ -248,3 +202,47 @@ const [fetchTodoMemo] = useAtom(fetchTodoMemoAtom);
 1. フェッチ処理が実行される
 2. データが取得できるまでの間は undefined または Promise の状態になる
 3. データ取得完了後、取得したデータで状態が更新される
+
+### 内部ファイルとして各部屋データのデータフェッチを行う場合
+- `public`dir をプロジェクトファイル直下に用意し、そのファイル内にフェッチ用データを置く
+```
+- public
+  |-  room.json // フェッチ用データ
+- src
+  |- app
+  ...
+  ..
+  .
+- next.config.mjs
+- tsconfig.json
+- README.md
+...
+..
+.
+```
+
+- クライアントコンポーネントでデータフェッチ
+```tsx
+// `src/app/components/rooms/Rooms.tsx`
+
+const [rooms, setRooms] = useAtom(roomsAtom);
+
+useEffect(() => {
+    const fetchRoomsData: () => Promise<void> = async () => {
+        try {
+            /* public/room.json をフェッチ */
+            const res: Response = await fetch("/room.json", { cache: 'no-store' });
+
+        if (!res.ok) {
+            throw new Error('fetch error');
+        }
+
+        const resObj: roomType[] = await res.json();
+        setRooms(resObj);
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    fetchRoomsData();
+}, []);
+```
