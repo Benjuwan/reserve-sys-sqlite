@@ -76,9 +76,9 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/
 # npx prisma studio で起動
 npx prisma studio
 ```
-  - `prisma`のアップデートコマンド
-  ```bash
-  npm i --save-dev prisma@latest
-  npm i @prisma/client@latest 
-  ```
-  
+
+- `prisma`のアップデートコマンド<br>
+```bash
+npm i --save-dev prisma@latest
+npm i @prisma/client@latest 
+```

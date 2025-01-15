@@ -34,7 +34,7 @@
 /* about page */
 .theAboutWrapper {
     height: 100vh;
-    margin: 2.5em auto;
+    margin: 0 auto;
 
     & h2 {
         font-size: 1.8rem;
