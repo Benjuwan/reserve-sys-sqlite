@@ -49,14 +49,16 @@
 
 ## 技術構成
 - @prisma/client@6.2.1
-- @types/node@20.16.11
+- @types/node@22.13.4
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
+- i@0.3.7
 - jotai@2.10.0
 - next@15.1.3
+- npm@11.0.0
 - prisma@6.2.1
 - react-dom@19.0.0
 - react@19.0.0
