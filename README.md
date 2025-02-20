@@ -57,7 +57,6 @@
 - eslint@8.57.1
 - jotai@2.10.0
 - next@15.1.3
-- npm@11.0.0
 - prisma@6.4.0
 - react-dom@19.0.0
 - react@19.0.0
