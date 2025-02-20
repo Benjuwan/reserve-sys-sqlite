@@ -55,7 +55,6 @@
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
-- i@0.3.7
 - jotai@2.10.0
 - next@15.1.3
 - npm@11.0.0
