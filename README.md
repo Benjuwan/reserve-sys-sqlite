@@ -48,7 +48,7 @@
   - aCode:003<br>`src\app\components\schedule\todoItems\utils\TodoFormItemRegiBtn.tsx`
 
 ## 技術構成
-- @prisma/client@6.2.1
+- @prisma/client@6.4.0
 - @types/node@22.13.4
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
@@ -59,7 +59,7 @@
 - jotai@2.10.0
 - next@15.1.3
 - npm@11.0.0
-- prisma@6.2.1
+- prisma@6.4.0
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.6.2
