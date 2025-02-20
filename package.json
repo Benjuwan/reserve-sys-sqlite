@@ -23,7 +23,6 @@
     "@types/uuid": "^10.0.0",
     "eslint": "^8",
     "eslint-config-next": "15.1.1",
-    "i": "^0.3.7",
     "npm": "^11.0.0",
     "prisma": "^6.4.0",
     "typescript": "^5"
