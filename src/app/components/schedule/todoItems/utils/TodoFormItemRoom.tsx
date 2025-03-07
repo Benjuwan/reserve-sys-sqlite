@@ -1,15 +1,20 @@
-import { ChangeEvent, Dispatch, Ref, memo, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, Ref, memo, SetStateAction, RefObject } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { roomsType } from "@/app/components/rooms/ts/roomsType";
 import { useHandleFormEntries } from "@/app/hooks/useHandleFormEntries";
+import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
 
-function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef }: {
+function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef, validationTxtRef }: {
     rooms: roomsType,
     todoItems: todoItemType,
     setTodoItems: Dispatch<SetStateAction<todoItemType>>,
-    roomRef: Ref<HTMLSelectElement> | undefined
+    roomRef: Ref<HTMLSelectElement> | undefined,
+    validationTxtRef?: RefObject<string>
 }) {
     const { handleFormEntries } = useHandleFormEntries();
+
+    const { checkTimeValidation } = useCheckTimeValidation();
+    checkTimeValidation(todoItems, validationTxtRef);
 
     return (
         <>
