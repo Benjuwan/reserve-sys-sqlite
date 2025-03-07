@@ -41,11 +41,7 @@
 
 - 編集完了
 
-### アラートコード
-- 予約内容の時間帯が競合した場合に表示されるアラート情報の発生元ファイル
-  - aCode:001<br>`src\app\components\schedule\todoItems\TodoForm.tsx`
-  - aCode:002<br>`src\app\components\schedule\todoItems\utils\TodoFormItemTimeSchedule.tsx`
-  - aCode:003<br>`src\app\components\schedule\todoItems\utils\TodoFormItemRegiBtn.tsx`
+---
 
 ## 技術構成
 - @prisma/client@6.4.0

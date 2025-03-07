@@ -1,30 +1,19 @@
 import todoStyle from "../styles/todoStyle.module.css";
-import { ChangeEvent, Dispatch, memo, SetStateAction } from "react";
-import { timeBlockBegin, timeBlockEnd } from "@/app/types/rooms-atom";
+import { ChangeEvent, Dispatch, memo, RefObject, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
+import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
 import { useHandleFormEntries } from "@/app/hooks/useHandleFormEntries";
-import { useCheckTimeBlockEntryForm } from "@/app/components/schedule/todoItems/hooks/useCheckTimeBlockEntryForm";
 
-function TodoFormItemTimeSchedule({ todoItems, setTodoItems }: {
+function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxtRef }: {
     todoItems: todoItemType,
-    setTodoItems: Dispatch<SetStateAction<todoItemType>>
+    setTodoItems: Dispatch<SetStateAction<todoItemType>>,
+    validationTxtRef?: RefObject<string>
 }) {
+    const { checkTimeValidation } = useCheckTimeValidation();
     const { handleFormEntries } = useHandleFormEntries();
-    const { checkTimeBlockEntryForm, checkTimeSchedule } = useCheckTimeBlockEntryForm();
 
     const handleTimeSchedule: (e: ChangeEvent<HTMLInputElement>) => void = (e: ChangeEvent<HTMLInputElement>) => {
-        const isCheckTimeBlockEntryForm: boolean = checkTimeBlockEntryForm(e);
-        if (isCheckTimeBlockEntryForm) {
-            alert(`「${timeBlockBegin}時〜${timeBlockEnd}時」の時間帯で指定してください`);
-            return;
-        }
-
-        const isCheckTimeSchedule: boolean = checkTimeSchedule(e, todoItems);
-        if (isCheckTimeSchedule) {
-            alert('他の方が既に予約済みです | aCode:002');
-            return;
-        }
-
+        checkTimeValidation(todoItems, validationTxtRef);
         handleFormEntries<todoItemType>(e, todoItems, setTodoItems);
     }
 

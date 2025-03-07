@@ -8,10 +8,10 @@ export const useCheckTimeBlockEntryForm = () => {
     const [todoMemo] = useAtom(todoMemoAtom);
 
     /* `src/app/types/rooms-atom.ts`で指定した予約受付可能な時間帯かチェック */
-    const checkTimeBlockEntryForm: (e: ChangeEvent<HTMLInputElement>) => boolean = (
-        e: ChangeEvent<HTMLInputElement>
+    const checkTimeBlockEntryForm: (e: ChangeEvent<HTMLInputElement> | string) => boolean = (
+        e: ChangeEvent<HTMLInputElement> | string
     ) => {
-        const valueStr: string = e.target.value;
+        const valueStr: string = typeof e !== 'string' ? e.target.value : e;
         const isNoReservationTime: boolean = parseInt(valueStr) < timeBlockBegin || parseInt(valueStr) >= timeBlockEnd;
 
         return isNoReservationTime;
@@ -37,50 +37,39 @@ export const useCheckTimeBlockEntryForm = () => {
                 const isMatchRoom: boolean = typeof todoItems.rooms !== 'undefined' ? memo.rooms === todoItems.rooms : false;
 
                 // 自身が登録した予約時間は検証対象外（編集時の回避措置）
-                const isSelf_allowOverlapSchedule: boolean = (todoItems.id === memo.id) && (parseInt(memo.startTime.replace(':', '')) <= theTime && parseInt(memo.finishTime.replace(':', '')) >= theTime);
-                if (isSelf_allowOverlapSchedule) {
+                const isSelf: boolean = todoItems.id === memo.id;
+                if (isSelf) {
                     return false;
                 }
 
-                const isOverlapSchedule: boolean = (parseInt(memo.startTime?.replace(':', '')) <= theTime && parseInt(memo.finishTime?.replace(':', '')) >= theTime);
+                const memoStartTime = parseInt(memo.startTime.replace(':', ''));
+                const memoFinishTime = parseInt(memo.finishTime.replace(':', ''));
 
-                // 当日限定かつ 予約室が合致かつ 時間が被っている場合 
-                return isMatchDay && isMatchRoom && isOverlapSchedule;
+                // 検証対象の時間を設定
+                const theStartTime = typeof todoItems.startTime !== 'undefined' ? parseInt(todoItems.startTime.replace(':', '')) : theTime;
+                const theFinishTime = typeof todoItems.finishTime !== 'undefined' ? parseInt(todoItems.finishTime.replace(':', '')) : theTime;
+
+                // console.log("既存予約:", memoStartTime, memoFinishTime);
+                // console.log("チェック対象:", theStartTime, theFinishTime);
+
+                // 時間の重複チェックロジック
+                const isOverlap: boolean =
+                    // 新しい予約の開始時間が既存の予約時間内にある
+                    (theStartTime >= memoStartTime && theStartTime < memoFinishTime) ||
+                    // 新しい予約の終了時間が既存の予約時間内にある
+                    (theFinishTime > memoStartTime && theFinishTime <= memoFinishTime) ||
+                    // 新しい予約が既存の予約を完全に包含している
+                    (theStartTime <= memoStartTime && theFinishTime >= memoFinishTime);
+
+                // 当日限定かつ 予約室が合致かつ 時間が被っている場合
+                return isMatchDay && isMatchRoom && isOverlap;
             }
+
+            return false;
         });
 
         return isCheckTimeSchedule;
     }
 
-    /* 同部屋内・同日での予約時間の重複確認（開始〜終了「予約時間全体」を通して他と被っていないか登録時にチェック）*/
-    const checkDuplicateTimeSchedule: (todoItems: todoItemType) => boolean = (
-        todoItems: todoItemType
-    ) => {
-        let isCheckDuplicateTime: boolean = false;
-
-        for (const memo of todoMemo) {
-            const isMatchRoom: boolean = typeof todoItems.rooms !== 'undefined' ? memo.rooms === todoItems.rooms : false;
-            const isMatchDay: boolean = memo.todoID === todoItems.todoID;
-            const isNotMySelf: boolean = (todoItems.id !== memo.id);
-
-            if (isMatchRoom && isMatchDay && isNotMySelf) {
-                if (
-                    typeof todoItems.startTime !== 'undefined' &&
-                    typeof todoItems.finishTime !== 'undefined' &&
-                    typeof memo.startTime !== 'undefined' &&
-                    typeof memo.finishTime !== 'undefined'
-                ) {
-                    const theStart: number = parseInt(todoItems.startTime.replace(':', ''));
-                    const compareStart: number = parseInt(memo.startTime.replace(':', ''));
-                    const theFinish: number = parseInt(todoItems.finishTime.replace(':', ''));
-                    const compareFinish: number = parseInt(memo.finishTime.replace(':', ''));
-                    isCheckDuplicateTime = theStart < compareStart && compareFinish < theFinish;
-                }
-            }
-        }
-
-        return isCheckDuplicateTime;
-    }
-
-    return { checkTimeBlockEntryForm, checkTimeSchedule, checkDuplicateTimeSchedule }
+    return { checkTimeBlockEntryForm, checkTimeSchedule }
 }

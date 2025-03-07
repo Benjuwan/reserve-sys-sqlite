@@ -6,6 +6,25 @@
     line-height: 1.8;
 }
 
+.todoForm {
+    position: relative;
+}
+
+.formBtns {
+    & span {
+        display: block;
+        width: 100%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        top: 100%;
+        left: 50%;
+        padding: 1em;
+        background-color: #cc3226;
+        color: #fff;
+        border-radius: 4px;
+    }
+}
+
 & .todoView {
     & .today {
         font-size: 2.4rem;
