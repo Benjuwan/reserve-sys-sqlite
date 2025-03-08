@@ -8,7 +8,7 @@
 以下の仕様に関しては[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリと同様です。<br><br>
 
 - 予約内容の重複禁止<br>他の方が先に予約している場合は受け付けません。
-- 予約時間外は受付不可<br>今月かつ「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。また、タイムテーブルには当日分の予約内容が反映されます。<br>※：`src/app/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
+- 予約時間外は受付不可<br>「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。<br>※：`src/app/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
 - 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/app/components/schedule/calendar/Calendar.tsx`内の`useEffect`での`deleteReservation`処理にて実行
 
 #### 予約方法
