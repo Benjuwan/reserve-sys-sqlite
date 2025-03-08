@@ -20,7 +20,7 @@ export default async function AboutPage() {
                     </div>
                     <div>
                         <dt>予約時間外は受付不可</dt>
-                        <dd>今月かつ「{timeBlockBegin}時～{timeBlockEnd}時」の時間帯で予約できます。また、タイムテーブルには当日分の予約内容が反映されます。</dd>
+                        <dd>「{timeBlockBegin}時～{timeBlockEnd}時」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。</dd>
                     </div>
                     <div>
                         <dt>過去の予約内容は随時削除</dt>
