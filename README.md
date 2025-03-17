@@ -44,7 +44,7 @@
 ---
 
 ## 技術構成
-- @prisma/client@6.4.0
+- @prisma/client@6.5.0
 - @types/node@22.13.4
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
@@ -53,7 +53,7 @@
 - eslint@8.57.1
 - jotai@2.10.0
 - next@15.1.3
-- prisma@6.4.0
+- prisma@6.5.0
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.6.2
@@ -78,3 +78,33 @@ npx prisma studio
 npm i --save-dev prisma@latest
 npm i @prisma/client@latest 
 ```
+
+## データベースの仕様（テーブル）更新
+登録内容を変更したい場合、以下フローを実行する必要がある。
+- `prisma/schema.prisma`<br>
+`model`オブジェクトの内容を編集（登録内容を追加・削除）
+- `prisma/schema.prisma`の`model`オブジェクト編集後、以下のコマンドをターミナルに打つ
+```bash
+# マイグレーションファイルを作成し、データベースに変更を適用
+npx prisma migrate dev --name what_you_changed # --name 以降は任意の命名
+
+# Prismaクライアントを更新して新しいスキーマを反映
+npx prisma generate
+```
+
+> [!NOTE]
+> - `prisma/dev.db-journal`<br>
+> `dev.db-journal`という設定中のデータベース（今回は`SQLite`）の内部処理用ファイルが自動的に生成・削除されるが無視して構わない。<br>
+> `dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している。
+
+### その他の更新・修正が必要なファイル
+※以下の更新・修正は本リポジトリにおいてのみ適用されるもので一般的なものではありません。
+- `src/app/components/schedule/todoItems/ts/todoItemType.ts`<br>
+登録内容の型情報を編集
+- `src/app/components/schedule/todoItems/TodoForm.tsx`
+    - `todoItems`ステートの初期値である`initTodoItems`オブジェクトを編集（オブジェクトに当該登録内容であるプロパティ・キーを追加・削除）
+    - （変更した）当該登録内容に関する入力フォームを（`src/app/components/schedule/todoItems/utils`配下に）用意または調整
+- `src/app/api/reservations/`配下の`Route Handlers`の登録内容を編集<br>
+（※[前述の`prisma`データベース更新フロー](#データベースの仕様テーブル更新)が済んでいないと進まないので注意）
+    - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）<br>
+    ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
