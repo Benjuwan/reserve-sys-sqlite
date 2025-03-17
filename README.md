@@ -59,13 +59,19 @@
 - typescript@5.6.2
 - uuid@10.0.0
 
-## 備考
+## セットアップ（起動）に必要な作業
 - `.env.local`を用意
 ```bash
-## NEXT_PUBLIC を前置した環境変数はクライアントサイドに露出する 
+# NEXT_PUBLIC を前置した環境変数はクライアントサイドに露出する 
 NEXT_PUBLIC_API_URL=http://localhost:3000/
 ```
 
+- `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
+```bash
+npx prisma generate
+```
+
+## 備考
 - `prisma studio`<br>
 `GUI`でテーブル操作できる機能
 ```bash
