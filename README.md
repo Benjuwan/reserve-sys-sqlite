@@ -45,19 +45,32 @@
 
 ## 技術構成
 - @prisma/client@6.5.0
-- @types/node@22.13.4
+- @types/node@22.13.13
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
-- jotai@2.10.0
-- next@15.1.3
+- jotai@2.12.2
+- next@15.2.3
 - prisma@6.5.0
 - react-dom@19.0.0
 - react@19.0.0
-- typescript@5.6.2
+- typescript@5.8.2
 - uuid@10.0.0
+
+> [!NOTE]
+> - `npm audit`で定期的に脆弱性のチェックを行う
+> - `npm update`で定期的に（互換性を維持した）更新を行う
+>   - `^`（キャレット：「指定されたバージョンからメジャーバージョンを変更しない範囲で最新のバージョンまでを許容」する機能を示す記号）が付いていても油断せず定期的にチェックする<br>例：`"next": "^14.2.12"`の場合、14.2.12以上 15.0.0未満のバージョンが許容される
+> - `npm outdated`で表示される`Current`と`Wanted`の内容が等しいのが望ましい
+
+### アップデートや更新後に読み込みエラーが発生する場合は以下を実施
+`npm audit fix`または`npm update`後にエラーが発生してサイトが表示されない場合は`npx prisma generate`を実施する。
+```bash
+# Prismaクライアントを更新してスキーマを反映
+npx prisma generate
+```
 
 ## セットアップ（起動）に必要な作業
 - `.env.local`を用意
