@@ -99,7 +99,7 @@ npm i @prisma/client@latest
 ```
 
 ## Prisma × SQLite の設定（初期セットアップ）方法
-- [Prisma × SQLite | memo.md](./memo.md#prisma設定)
+- [Prisma × SQLite | memo.md](./memo.md#prisma--sqlite)
 - [Prismaの設定 | Next.js（v15）× Prisma × SQLite で会議室予約システムを作ってみた](https://qiita.com/benjuwan/items/c4341ca41758b076a385#prisma%E3%81%AE%E8%A8%AD%E5%AE%9A)
 
 ## データベースの仕様（テーブル）更新
