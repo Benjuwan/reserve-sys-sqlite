@@ -45,14 +45,14 @@
 
 ## 技術構成
 - @prisma/client@6.5.0
-- @types/node@22.13.13
+- @types/node@22.13.14
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
 - jotai@2.12.2
-- next@15.2.3
+- next@15.2.4
 - prisma@6.5.0
 - react-dom@19.0.0
 - react@19.0.0
@@ -97,6 +97,10 @@ npx prisma studio
 npm i --save-dev prisma@latest
 npm i @prisma/client@latest 
 ```
+
+## Prisma × SQLite の設定（初期セットアップ）方法
+- [Prisma × SQLite | memo.md](./memo.md#prisma設定)
+- [Prismaの設定 | Next.js（v15）× Prisma × SQLite で会議室予約システムを作ってみた](https://qiita.com/benjuwan/items/c4341ca41758b076a385#prisma%E3%81%AE%E8%A8%AD%E5%AE%9A)
 
 ## データベースの仕様（テーブル）更新
 登録内容を変更したい場合、以下フローを実行する必要がある。
