@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import calendarStyle from "./styles/calendarStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { todoItemType } from "../todoItems/ts/todoItemType";
@@ -26,27 +26,36 @@ function Calendar() {
     const [ctrlMonth, setCtrlMonth] = useState<number>(currMonth);
     const [days, setDays] = useState<calendarItemType[]>([]);
 
-    const date: Date = new Date();
-    const present: number = useMemo(() => {
-        return parseInt(`${date.getFullYear()}${(date.getMonth() + 1)}${date.getDate()}`);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     useEffect(() => {
         if (window.matchMedia("(min-width: 1025px)").matches) {
             setDesktopView(true);
         }
 
         if (fetchTodoMemo.length > 0) {
+            const date: Date = new Date();
+            const compareTarget_present: Date = new Date(`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
+
             const exceptPastTodoMemos: todoItemType[] = [...fetchTodoMemo].filter(memo => {
-                const memoDate: number = parseInt(memo.todoID.replaceAll('/', ''));
-                if (memoDate >= present) {
-                    return memo;
+                /* compareTarget_present と「同じ記述及び文字列型にする」ための整形処理 */
+                const adjustMemoTimeData: string = memo.todoID.split('/').map((d, i) => {
+                    if (i !== 0) {
+                        // 月日のみ「-MM, -DD」の形に整形（※出力結果は YYYY-MM-DD ）
+                        return `-${d.toString().padStart(2, '0')}`;
+                    } else {
+                        return d;
+                    }
+                }).join('');
+                const compareTarget_memoDate: Date = new Date(adjustMemoTimeData);
+
+                if (compareTarget_memoDate >= compareTarget_present) {
+                    return true;
                 } else {
                     /* 過去分はDBから削除 */
                     deleteReservation(memo.id);
+                    return false; // 明示的に false を返す
                 }
             });
+
             /* 当日以降の予定のみスケジュールとして管理・把握 */
             setTodoMemo(exceptPastTodoMemos);
         }
