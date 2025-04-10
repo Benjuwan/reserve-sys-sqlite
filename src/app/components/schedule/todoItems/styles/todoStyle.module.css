@@ -147,9 +147,10 @@
         }
 
         & input {
+            display: block;
+            width: 100%;
             font-size: 16px;
             line-height: 2;
-            width: 100%;
             padding-left: .25em;
         }
 
@@ -157,6 +158,13 @@
             font-size: clamp(10px, 100%, 14px);
             display: block;
             margin: 1em 0;
+
+            & input[type="time"] {
+                width: 100%;
+                appearance: none;
+                border: 1px solid #767676;
+                border-radius: 2px;
+            }
         }
     }
 }
@@ -310,12 +318,6 @@ ul.todoLists {
 
                 & input {
                     width: 70%;
-                }
-
-                &.timeLabel {
-                    & input {
-                        margin-left: .5em;
-                    }
                 }
             }
         }
