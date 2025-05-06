@@ -1,7 +1,7 @@
 import { ChangeEvent, memo, useRef, useState } from "react";
 import todoStyle from "./styles/todoStyle.module.css";
 import { useAtom } from "jotai";
-import { roomsAtom } from "@/app/types/rooms-atom";
+import { roomsAtom } from "@/types/rooms-atom";
 import { todoItemType } from "./ts/todoItemType";
 import TodoFormItemContent from "./utils/TodoFormItemContent";
 import TodoFormItemPerson from "./utils/TodoFormItemPerson";
@@ -11,7 +11,7 @@ import TodoFormItemPassword from "./utils/TodoFormItemPassword";
 import TodoFormItemRegiBtn from "./utils/TodoFormItemRegiBtn";
 import { useRegiTodoItem } from "./hooks/useRegiTodoItem";
 import { useUpdateTodoItem } from "./hooks/useUpdateTodoItem";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 import { useHandleFormItems } from "./hooks/useHandleFormItems";
 
 type TodoFormType = {

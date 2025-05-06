@@ -1,8 +1,8 @@
 import { ChangeEvent } from "react";
-import { timeBlockBegin, timeBlockEnd } from "@/app/types/rooms-atom";
+import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
-import { todoMemoAtom } from "@/app/types/calendar-atom";
+import { todoMemoAtom } from "@/types/calendar-atom";
 
 export const useCheckTimeBlockEntryForm = () => {
     const [todoMemo] = useAtom(todoMemoAtom);

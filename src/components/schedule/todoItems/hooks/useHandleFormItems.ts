@@ -1,6 +1,6 @@
 import { SyntheticEvent } from "react";
 import { useViewTodoCtrl } from "./useViewTodoCtrl";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
 export const useHandleFormItems = () => {
     const { viewTodoCtrl } = useViewTodoCtrl();

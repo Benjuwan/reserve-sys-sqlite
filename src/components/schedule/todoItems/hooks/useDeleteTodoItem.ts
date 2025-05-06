@@ -1,6 +1,6 @@
 import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
-import { todoMemoAtom } from "@/app/types/calendar-atom";
+import { todoMemoAtom } from "@/types/calendar-atom";
 
 export const useDeleteTodoItem = () => {
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);

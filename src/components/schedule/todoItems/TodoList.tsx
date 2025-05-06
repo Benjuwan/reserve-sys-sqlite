@@ -2,9 +2,9 @@ import todoStyle from "./styles/todoStyle.module.css";
 import { Fragment, memo, SyntheticEvent, useMemo } from "react";
 import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
-import { isDesktopViewAtom, todoMemoAtom } from "@/app/types/calendar-atom";
+import { isDesktopViewAtom, todoMemoAtom } from "@/types/calendar-atom";
 import TodoItems from "./TodoItems";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
 function TodoList({ todoID }: { todoID: string }) {
     const [todoMemo] = useAtom(todoMemoAtom);

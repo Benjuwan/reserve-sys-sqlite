@@ -5,7 +5,7 @@ import calendarStyle from "./styles/calendarStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
 import { todoItemType } from "../todoItems/ts/todoItemType";
 import { useAtom } from "jotai";
-import { fetchTodoMemoAtom, isDesktopViewAtom, todoMemoAtom } from "@/app/types/calendar-atom";
+import { fetchTodoMemoAtom, isDesktopViewAtom, todoMemoAtom } from "@/types/calendar-atom";
 import PrevNextMonthBtns from "./components/PrevNextMonthBtns";
 import DaydateList from "./components/DaydateList";
 import DaysList from "./components/DaysList";

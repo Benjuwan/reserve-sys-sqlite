@@ -2,11 +2,11 @@ import { memo, SyntheticEvent } from "react";
 import todoStyle from "./styles/todoStyle.module.css";
 import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
-import { todoMemoAtom } from "@/app/types/calendar-atom";
+import { todoMemoAtom } from "@/types/calendar-atom";
 import TodoItemsEditable from "./utils/TodoItemsEditable";
 import TodoItemsDisEditable from "./utils/TodoItemsDisEditable";
 import { useCloseModalWindow } from "./hooks/useCloseModalWindow";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
 function TodoItems({ todoItem }: { todoItem: todoItemType }) {
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);

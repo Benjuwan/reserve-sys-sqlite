@@ -1,6 +1,6 @@
 import roomStyle from "../styles/roomstyle.module.css";
 import { memo } from "react";
-import { timeBlockBegin, timeBlockEnd } from "@/app/types/rooms-atom";
+import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 import TimeBlock from "./TimeBlock";
 import { todoItemType } from "../../schedule/todoItems/ts/todoItemType";
 

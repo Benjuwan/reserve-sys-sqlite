@@ -1,9 +1,9 @@
 import Image from "next/image";
 import { memo } from "react";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
-import chevron_left from "../../../../../../public/icons/chevron_left.svg";
-import chevron_right from "../../../../../../public/icons/chevron_right.svg";
+import chevron_left from "../../../../../public/icons/chevron_left.svg";
+import chevron_right from "../../../../../public/icons/chevron_right.svg";
 
 type btnsPropsType = {
     className: string;

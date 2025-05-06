@@ -1,7 +1,7 @@
 import { ChangeEvent, memo, useState } from "react";
 import todoStyle from "../styles/todoStyle.module.css";
 import { todoItemType } from "../ts/todoItemType";
-import { useHandleInputValueSanitize } from "@/app/hooks/useHandleInputValueSanitize";
+import { useHandleInputValueSanitize } from "@/hooks/useHandleInputValueSanitize";
 
 type TodoItemsEditableTypes = {
     todoItem: todoItemType;
