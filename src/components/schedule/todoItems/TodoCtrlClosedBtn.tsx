@@ -2,9 +2,9 @@ import Image from "next/image";
 import { SyntheticEvent, memo } from "react";
 import todoStyle from "./styles/todoStyle.module.css";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 
-import closeIcon from "../../../../../public/icons/close.svg";
+import closeIcon from "../../../../public/icons/close.svg";
 
 function TodoCtrlClosedBtn() {
     const { scrollTop } = useScrollTop();

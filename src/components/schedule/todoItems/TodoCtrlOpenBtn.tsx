@@ -2,11 +2,11 @@ import Image from "next/image";
 import { SyntheticEvent, memo } from "react";
 import todoStyle from "./styles/todoStyle.module.css";
 import { calendarItemType } from "../calendar/ts/calendarItemType";
-import { useScrollTop } from "@/app/hooks/useScrollTop";
+import { useScrollTop } from "@/hooks/useScrollTop";
 import { useViewTodoCtrl } from "./hooks/useViewTodoCtrl";
 import { useRestrictReservationTerm } from "./hooks/useRestrictReservationTerm";
 
-import add_circle from "../../../../../public/icons/add_circle.svg";
+import add_circle from "../../../../public/icons/add_circle.svg";
 
 function TodoCtrlOpenBtn({ day }: { day: calendarItemType }) {
     const { scrollTop } = useScrollTop();

@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { todoItemType } from "@/app/components/schedule/todoItems/ts/todoItemType";
+import { todoItemType } from "@/components/schedule/todoItems/ts/todoItemType";
 
 // PUT
 export async function PUT(request: Request) {

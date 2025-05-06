@@ -1,6 +1,6 @@
 import { RefObject } from "react";
 import { todoItemType } from "../ts/todoItemType";
-import { timeBlockBegin, timeBlockEnd } from "@/app/types/rooms-atom";
+import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 import { useCheckTimeBlockEntryForm } from "./useCheckTimeBlockEntryForm";
 
 export const useCheckTimeValidation = () => {

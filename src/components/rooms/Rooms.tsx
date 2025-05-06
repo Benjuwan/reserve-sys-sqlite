@@ -3,8 +3,8 @@
 import { memo } from "react";
 import roomStyle from "./styles/roomstyle.module.css";
 import { useAtom } from "jotai";
-import { roomsAtom } from "@/app/types/rooms-atom";
-import { todoMemoAtom } from "@/app/types/calendar-atom";
+import { roomsAtom } from "@/types/rooms-atom";
+import { todoMemoAtom } from "@/types/calendar-atom";
 import TimeTable from "./components/TimeTable";
 
 function Rooms() {

@@ -2,7 +2,7 @@ import todoStyle from "../styles/todoStyle.module.css";
 import { ChangeEvent, Dispatch, memo, RefObject, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
-import { useHandleFormEntries } from "@/app/hooks/useHandleFormEntries";
+import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
 
 function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxtRef }: {
     todoItems: todoItemType,

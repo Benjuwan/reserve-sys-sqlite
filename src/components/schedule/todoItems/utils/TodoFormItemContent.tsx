@@ -1,6 +1,6 @@
 import { ChangeEvent, Dispatch, memo, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
-import { useHandleFormEntries } from "@/app/hooks/useHandleFormEntries";
+import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
 
 function TodoFormItemContent({ todoItems, setTodoItems }: {
     todoItems: todoItemType,

@@ -1,6 +1,6 @@
 import { memo } from "react";
 import Link from "next/link";
-import baseStyle from "./styles/page.module.css";
+import baseStyle from "../styles/page.module.css";
 
 function NotFoundPage() {
     return (

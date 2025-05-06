@@ -1,5 +1,5 @@
-import baseStyle from "../styles/page.module.css";
-import { timeBlockBegin, timeBlockEnd } from "../types/rooms-atom";
+import baseStyle from "../../styles/page.module.css";
+import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 
 export default async function AboutPage() {
     return (
