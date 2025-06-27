@@ -61,6 +61,7 @@
 }
 
 .aboutContainer {
+    width: fit-content;
     cursor: pointer;
     margin-bottom: 2em;
 
@@ -72,6 +73,7 @@
         width: stretch;
         max-width: 960px;
         height: stretch;
+        overflow-y: auto;
         background-color: rgba(255, 255, 255, .75);
         backdrop-filter: blur(8px);
         box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
@@ -96,6 +98,7 @@
 
 .multiTimeTableCtrlBtns {
     display: flex;
+    justify-content: space-between;
     gap: 1em;
     margin: 1em 0 .5em;
     font-size: 1.4rem;
