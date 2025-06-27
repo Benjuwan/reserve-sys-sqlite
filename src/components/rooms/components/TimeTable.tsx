@@ -4,7 +4,15 @@ import { timeBlockBegin, timeBlockEnd } from "@/types/rooms-atom";
 import TimeBlock from "./TimeBlock";
 import { todoItemType } from "../../schedule/todoItems/ts/todoItemType";
 
-function TimeTable({ room, todoMemo }: { room: string, todoMemo: todoItemType[] }) {
+type timeTableProps = {
+    room: string;
+    todoMemo: todoItemType[];
+    ctrlMultiTimeTable: number;
+};
+
+function TimeTable({ props }: { props: timeTableProps }) {
+    const { room, todoMemo, ctrlMultiTimeTable } = props;
+
     const timeBlocks: number[] = [];
     for (let i = timeBlockBegin; i < timeBlockEnd; i++) timeBlocks.push(i);
 
@@ -17,7 +25,8 @@ function TimeTable({ room, todoMemo }: { room: string, todoMemo: todoItemType[] 
                         <TimeBlock props={{
                             room: room,
                             timeBlock: timeBlock,
-                            todoMemo: todoMemo
+                            todoMemo: todoMemo,
+                            ctrlMultiTimeTable: ctrlMultiTimeTable
                         }} />
                     </div>
                 </li>

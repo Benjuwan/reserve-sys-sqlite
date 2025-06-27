@@ -8,7 +8,7 @@ type TodoItemsEditableTypes = {
     todoItem: todoItemType;
     updateTodoMemoEditState: (editState: boolean) => void;
     handleCloseModalWindowBtnClicked: (btnEl: SyntheticEvent<HTMLButtonElement>) => void;
-}
+};
 
 function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
     const { todoItem, updateTodoMemoEditState, handleCloseModalWindowBtnClicked } = props;
