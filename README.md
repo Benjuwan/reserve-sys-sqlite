@@ -2,14 +2,14 @@
 [reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリの派生ver（`prisma`×`SQLite`）<br><br>
 任意の部屋数を用意するとともに、各部屋ごとの予約を視覚的に把握及び管理・編集できる「会議室予約システムUI」です。<br>`prisma`×`SQLite`で予約内容をビルトインのデータベースに保存・管理する仕様にしています。<br>
 
-- `src/app/types/rooms-atom.ts`<br>部屋数と予約可能時間の設定ファイル
+- `src/types/rooms-atom.ts`<br>部屋数と予約可能時間の設定ファイル
 
 ### 仕様紹介
 以下の仕様に関しては[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリと同様です。<br><br>
 
 - 予約内容の重複禁止<br>他の方が先に予約している場合は受け付けません。
-- 予約時間外は受付不可<br>「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。<br>※：`src/app/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
-- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/app/components/schedule/calendar/Calendar.tsx`内の`useEffect`での`deleteReservation`処理にて実行
+- 予約時間外は受付不可<br>「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。<br>※：`src/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
+- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/components/schedule/calendar/Calendar.tsx`内の`useEffect`での`deleteReservation`処理にて実行
 
 #### 予約方法
 <img width="948" alt="スケジュール欄の日付にあるアイコンをクリック" src="https://github.com/user-attachments/assets/38353bee-9797-4b3d-a228-70ec86d01b84" />
@@ -134,19 +134,6 @@ npx prisma generate
     ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
 
 ### TODO
-- [ ] Safari での予約登録・編集ができない問題を解決する<br>
-  - `Safari`では`fetch`の`body`に`FormData`を渡すと`400 Bad Request`エラーが発生するため、`FormData`を`JSON`に変換して送信するように修正する必要があります。<br>
-  - `Safari`での予約登録・編集ができない問題は、`src/app/api/reservations/route.ts`の`POST`と`PUT`のハンドラーで`FormData`を`JSON`に変換して送信するように修正することで解決できます。<br>
-  - 具体的には、`FormData`を`JSON`に変換するための関数を作成し、`POST`と`PUT`のハンドラーでその関数を使用して`FormData`を`JSON`に変換して送信するように修正します。<br>
-  - 例として、以下のような関数を作成し、`POST`と`PUT`のハンドラーで使用します。<br>
-```typescript
-function formDataToJson(formData: FormData): Record<string, any> {
-  const json: Record<string, any> = {};
-  formData.forEach((value, key) => {
-    json[key] = value;
-  });
-  return json;
-}   
-```
+- [ ] Safari での時間入力・選択及び時間帯の表示不具合の原因究明と解消
 - [x] 予約タイムテーブルをweekly（週単位）で表示できるようにする
 - [x] 予約タイムテーブル以下に会議室使用時の注意事項（清掃など）を明記する

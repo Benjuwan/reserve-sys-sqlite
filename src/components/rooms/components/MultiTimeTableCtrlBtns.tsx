@@ -12,6 +12,7 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
     const { ctrlMultiTimeTable, setCtrlMultiTimeTable, today } = props;
 
     // 当年当月の「0日目」を取得（翌月の0日＝当月の最終日）し、その日付（最終日）を出す
+    // 例：const thisLastDay = new Date(2025, 6, 0).getDate()
     const thisLastDay = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
 
     // 最終週かどうか判定
@@ -25,9 +26,10 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
             return;
         }
 
-        // 最終週における1週間以内の残日数と同じ場合は残日数を強制
-        if (isLastWeek && day === (thisLastDay - today)) {
-            setCtrlMultiTimeTable(thisLastDay - today);
+        // 当日より起算して7日を超える場合は何もしない（タイムテーブルの表示は翌週までに制限）
+        const oneWeekLater: number = today + 7;
+        const isPassedThisMonth: boolean = day < 7 && day >= oneWeekLater - thisLastDay;
+        if (day >= oneWeekLater || (isLastWeek && isPassedThisMonth)) {
             return;
         }
 
