@@ -6,7 +6,7 @@ import { useHandleInputValueSanitize } from "@/hooks/useHandleInputValueSanitize
 type TodoItemsEditableTypes = {
     todoItem: todoItemType;
     updateTodoMemoEditState: (editState: boolean) => void;
-}
+};
 
 function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
     const { todoItem, updateTodoMemoEditState } = props;

@@ -60,6 +60,60 @@
     width: calc(100vw * 1.6);
 }
 
+.aboutContainer {
+    cursor: pointer;
+    margin-bottom: 2em;
+
+    & section {
+        padding: calc(100vh/5) 2.5em;
+        position: fixed;
+        margin: auto;
+        inset: 0;
+        width: stretch;
+        max-width: 960px;
+        height: stretch;
+        background-color: rgba(255, 255, 255, .75);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10%);
+        transition: opacity .5s, visibility .5s, transform .5s;
+        transition-delay: transform 1s;
+        z-index: 9;
+    }
+
+    &.onView {
+        cursor: default;
+
+        & section {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+}
+
+.multiTimeTableCtrlBtns {
+    display: flex;
+    gap: 1em;
+    margin: 1em 0 .5em;
+    font-size: 1.4rem;
+
+    & button {
+        padding: .25em 1em;
+        background-color: #333;
+        color: white;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover {
+            opacity: .75;
+        }
+    }
+}
+
 /* minBlocks div の間隔調整のために 560px で指定 */
 @media screen and (min-width: 560px) {
     .timeScheduleWrapper {
@@ -78,6 +132,7 @@
         }
     }
 
+    .multiTimeTableCtrlBtns,
     .roomContainer p {
         font-size: 14px;
     }

@@ -44,16 +44,16 @@
 ---
 
 ## 技術構成
-- @prisma/client@6.9.0
-- @types/node@22.15.29
+- @prisma/client@6.10.1
+- @types/node@22.15.33
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
 - jotai@2.12.5
-- next@15.3.3
-- prisma@6.9.0
+- next@15.3.4
+- prisma@6.10.1
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.8.3
@@ -132,3 +132,21 @@ npx prisma generate
 （※[前述の`prisma`データベース更新フロー](#データベースの仕様テーブル更新)が済んでいないと進まないので注意）
     - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）<br>
     ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
+
+### TODO
+- [ ] Safari での予約登録・編集ができない問題を解決する<br>
+  - `Safari`では`fetch`の`body`に`FormData`を渡すと`400 Bad Request`エラーが発生するため、`FormData`を`JSON`に変換して送信するように修正する必要があります。<br>
+  - `Safari`での予約登録・編集ができない問題は、`src/app/api/reservations/route.ts`の`POST`と`PUT`のハンドラーで`FormData`を`JSON`に変換して送信するように修正することで解決できます。<br>
+  - 具体的には、`FormData`を`JSON`に変換するための関数を作成し、`POST`と`PUT`のハンドラーでその関数を使用して`FormData`を`JSON`に変換して送信するように修正します。<br>
+  - 例として、以下のような関数を作成し、`POST`と`PUT`のハンドラーで使用します。<br>
+```typescript
+function formDataToJson(formData: FormData): Record<string, any> {
+  const json: Record<string, any> = {};
+  formData.forEach((value, key) => {
+    json[key] = value;
+  });
+  return json;
+}   
+```
+- [x] 予約タイムテーブルをweekly（週単位）で表示できるようにする
+- [x] 予約タイムテーブル以下に会議室使用時の注意事項（清掃など）を明記する

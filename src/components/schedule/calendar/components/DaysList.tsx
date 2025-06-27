@@ -11,7 +11,7 @@ type todaySignal = {
     thisYear: number;
     thisMonth: number;
     today: number;
-}
+};
 
 function DaysList({ days }: { days: calendarItemType[] }) {
     const isNotPastDays: (day: calendarItemType) => boolean = (day: calendarItemType) => {

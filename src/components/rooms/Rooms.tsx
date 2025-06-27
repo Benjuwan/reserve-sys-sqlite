@@ -1,11 +1,27 @@
 "use client"
 
-import { memo } from "react";
+import { memo, useMemo, useState } from "react";
 import roomStyle from "./styles/roomstyle.module.css";
 import { useAtom } from "jotai";
 import { roomsAtom } from "@/types/rooms-atom";
 import { todoMemoAtom } from "@/types/calendar-atom";
+import About from "../common/About";
 import TimeTable from "./components/TimeTable";
+import MultiTimeTableCtrlBtns from "./components/MultiTimeTableCtrlBtns";
+
+function RoomsAboutViewer() {
+    const [isAboutOpen, setIsAboutOpen] = useState<boolean>(false);
+    const aboutLightBox: () => void = () => {
+        setIsAboutOpen(!isAboutOpen);
+    }
+
+    return (
+        <div role="button" className={isAboutOpen ? `${roomStyle.aboutContainer} ${roomStyle.onView}` : roomStyle.aboutContainer} onClick={aboutLightBox}>
+            <h2>◎ 使い方の説明や注意事項</h2>
+            <section><About /></section>
+        </div>
+    );
+}
 
 function Rooms() {
     const [rooms] = useAtom(roomsAtom);
@@ -16,16 +32,29 @@ function Rooms() {
     */
     const [todoMemo] = useAtom(todoMemoAtom);
 
+    const today: number = useMemo(() => new Date().getDate(), []);
+    const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(today);
+
     return (
         <section>
+            <MultiTimeTableCtrlBtns props={{
+                ctrlMultiTimeTable: ctrlMultiTimeTable,
+                setCtrlMultiTimeTable: setCtrlMultiTimeTable,
+                today: today
+            }} />
             {rooms.map((room, i) => (
                 <div key={i} className={roomStyle.roomContainer}>
                     <p>{room.room}</p>
                     <div className={roomStyle.timeScheduleWrapper}>
-                        <TimeTable room={room.room} todoMemo={todoMemo} />
+                        <TimeTable props={{
+                            room: room.room,
+                            todoMemo: todoMemo,
+                            ctrlMultiTimeTable: ctrlMultiTimeTable
+                        }} />
                     </div>
                 </div>
             ))}
+            <RoomsAboutViewer />
         </section>
     );
 }

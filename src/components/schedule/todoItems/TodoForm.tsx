@@ -17,7 +17,7 @@ import { useHandleFormItems } from "./hooks/useHandleFormItems";
 type TodoFormType = {
     todoItem?: todoItemType;
     todoId?: string;
-}
+};
 
 function TodoForm({ props }: { props: TodoFormType }) {
     const { todoItem, todoId } = props;

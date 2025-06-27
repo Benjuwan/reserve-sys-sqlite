@@ -11,16 +11,16 @@ type btnsPropsType = {
     setCtrlMonth: React.Dispatch<React.SetStateAction<number>>;
     ctrlYear: number;
     setCtrlYear: React.Dispatch<React.SetStateAction<number>>;
-}
+};
 
 const btnStyle: object = {
     'padding': '.5em 1em'
-}
+};
 
 const btnIconStyle: object = {
     'verticalAlign': 'middle',
     'filter': 'brightness(3)'
-}
+};
 
 function PrevNextMonthBtns({ props }: { props: btnsPropsType }) {
     const { className, ctrlMonth, setCtrlMonth, setCtrlYear, ctrlYear } = props;

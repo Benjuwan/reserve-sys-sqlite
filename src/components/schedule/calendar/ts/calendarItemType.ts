@@ -5,4 +5,4 @@ export type calendarItemType = {
     dayDate: string;
     dayDateNum: number;
     signalPrevNextMonth?: boolean;
-}
+};
