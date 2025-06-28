@@ -45,7 +45,7 @@
 
 ## 技術構成
 - @prisma/client@6.10.1
-- @types/node@22.15.33
+- @types/node@22.15.34
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
