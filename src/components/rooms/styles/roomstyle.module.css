@@ -65,24 +65,39 @@
     cursor: pointer;
     margin-bottom: 2em;
 
+    &>h2 {
+        color: #1a0dab;
+        text-decoration: underline;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
     & section {
         padding: calc(100vh/5) 2.5em;
         position: fixed;
-        margin: auto;
-        inset: 0;
-        width: stretch;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
         max-width: 960px;
-        height: stretch;
+        height: 100vh;
         overflow-y: auto;
+        overscroll-behavior: contain;
         background-color: rgba(255, 255, 255, .75);
         backdrop-filter: blur(8px);
         box-shadow: 0 0 8px rgba(0, 0, 0, .25) inset;
         opacity: 0;
         visibility: hidden;
-        transform: translateY(10%);
-        transition: opacity .5s, visibility .5s, transform .5s;
-        transition-delay: transform 1s;
+        transition: opacity .5s, visibility .5s;
         z-index: 9;
+
+        &>div {
+            transform: translateY(10%);
+            transition: transform 1s;
+            transition-delay: transform 1s;
+        }
     }
 
     &.onView {
@@ -91,7 +106,10 @@
         & section {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0);
+
+            &>div {
+                transform: translateY(0);
+            }
         }
     }
 }
