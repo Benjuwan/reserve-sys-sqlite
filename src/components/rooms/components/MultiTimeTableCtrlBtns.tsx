@@ -28,7 +28,7 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
 
         // 当日より起算して7日を超える場合は何もしない（タイムテーブルの表示は翌週までに制限）
         const oneWeekLater: number = today + 7;
-        const isPassedThisMonth: boolean = day < 7 && day >= oneWeekLater - thisLastDay;
+        const isPassedThisMonth: boolean = day <= 7 && day >= oneWeekLater - thisLastDay;
         if (day >= oneWeekLater || (isLastWeek && isPassedThisMonth)) {
             return;
         }

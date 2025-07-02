@@ -44,8 +44,8 @@
 ---
 
 ## 技術構成
-- @prisma/client@6.10.1
-- @types/node@22.15.34
+- @prisma/client@6.11.0
+- @types/node@22.16.0
 - @types/react-dom@19.0.2 overridden
 - @types/react@19.0.1 overridden
 - @types/uuid@10.0.0
@@ -53,7 +53,7 @@
 - eslint@8.57.1
 - jotai@2.12.5
 - next@15.3.4
-- prisma@6.10.1
+- prisma@6.11.0
 - react-dom@19.0.0
 - react@19.0.0
 - typescript@5.8.3
@@ -132,8 +132,3 @@ npx prisma generate
 （※[前述の`prisma`データベース更新フロー](#データベースの仕様テーブル更新)が済んでいないと進まないので注意）
     - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）<br>
     ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる
-
-### TODO
-- [ ] Safari での時間入力・選択及び時間帯の表示不具合の原因究明と解消
-- [x] 予約タイムテーブルをweekly（週単位）で表示できるようにする
-- [x] 予約タイムテーブル以下に会議室使用時の注意事項（清掃など）を明記する

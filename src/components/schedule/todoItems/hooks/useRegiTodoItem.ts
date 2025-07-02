@@ -2,9 +2,13 @@ import { v4 as uuidv4 } from 'uuid'; // key へ渡すための固有の識別子
 import { todoItemType } from "../ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom } from '@/types/calendar-atom';
+import { useCreateTimeSpace } from '@/hooks/useCreateTimeSpace';
 
 export const useRegiTodoItem = () => {
     const [todoMemo, setTodoMemo] = useAtom(todoMemoAtom);
+
+    // 予約終了時間に+15分の余剰時間を設ける
+    const { createTimeSpace } = useCreateTimeSpace();
 
     /* データベース（SQLite）に予約を登録 */
     const createReservation: (data: todoItemType) => Promise<todoItemType> = async (data: todoItemType) => {
@@ -24,7 +28,8 @@ export const useRegiTodoItem = () => {
 
         const newTodoList: todoItemType = {
             ...shallowCopyTodoItems,
-            id: uuidv4() // key へ渡すための固有の識別子（uuid：Universally Unique Identifier）を生成
+            id: uuidv4(), // key へ渡すための固有の識別子（uuid：Universally Unique Identifier）を生成
+            finishTime: createTimeSpace(shallowCopyTodoItems.finishTime)
         }
 
         if (shallowCopyTodoItems.todoContent.length > 0) {
