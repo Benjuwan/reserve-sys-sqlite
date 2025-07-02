@@ -4,12 +4,14 @@ import { todoItemType } from "./ts/todoItemType";
 import { useAtom } from "jotai";
 import { isDesktopViewAtom, todoMemoAtom } from "@/types/calendar-atom";
 import TodoItems from "./TodoItems";
+import { useCreateTimeSpace } from "@/hooks/useCreateTimeSpace";
 import { useScrollTop } from "@/hooks/useScrollTop";
 
 function TodoList({ todoID }: { todoID: string }) {
     const [todoMemo] = useAtom(todoMemoAtom);
     const [desktopView] = useAtom(isDesktopViewAtom);
 
+    const { adjustViewerTimeSpace } = useCreateTimeSpace();
     const { scrollTop } = useScrollTop();
 
     /* モーダル表示関連（ToDoの詳細表示オン・オフ）*/
@@ -58,7 +60,7 @@ function TodoList({ todoID }: { todoID: string }) {
                                                 }&#93;</span>
                                             }
                                             {(todoItem.startTime && todoItem.finishTime) ?
-                                                <span>{todoItem.startTime} ～ {todoItem.finishTime}</span>
+                                                <span>{todoItem.startTime} ～ {adjustViewerTimeSpace(todoItem.finishTime)}</span>
                                                 : null
                                             }
                                         </div> :

@@ -3,6 +3,7 @@ import todoStyle from "../styles/todoStyle.module.css";
 import { todoItemType } from "../ts/todoItemType";
 import TodoForm from "../TodoForm";
 import { useDeleteTodoItem } from "../hooks/useDeleteTodoItem";
+import { useCreateTimeSpace } from "@/hooks/useCreateTimeSpace";
 
 type TodoItemsEditableTypes = {
     todoItem: todoItemType;
@@ -14,6 +15,7 @@ function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
     const { todoItem, updateTodoMemoEditState, handleCloseModalWindowBtnClicked } = props;
 
     const { deleteTodoItem } = useDeleteTodoItem();
+    const { adjustViewerTimeSpace } = useCreateTimeSpace();
 
     const changeMode: (todoItem: todoItemType) => void = (todoItem: todoItemType) => {
         let editState: boolean | null = null; // todoItem.edit
@@ -35,7 +37,7 @@ function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
                 {todoItem.person && <p>予約者／部署名：{todoItem.person}</p>}
                 {todoItem.rooms && <p>場所：{todoItem.rooms}</p>}
                 {todoItem.startTime && <p>開始時刻：{todoItem.startTime}</p>}
-                {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
+                {todoItem.finishTime && <p>終了時刻：{adjustViewerTimeSpace(todoItem.finishTime)}</p>}
                 {todoItem.pw && <p>登録パスワード：{todoItem.pw}</p>}
             </div>
             <TodoForm props={{

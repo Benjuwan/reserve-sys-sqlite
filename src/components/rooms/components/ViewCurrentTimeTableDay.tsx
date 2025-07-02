@@ -9,7 +9,7 @@ function ViewCurrentTimeTableDay({ ctrlMultiTimeTable, isLastWeek }: { ctrlMulti
     return (
         <>
             {pathName.length === 1 &&
-                <p>- <b>{isLastWeek && ctrlMultiTimeTable < 7 ? thisMonth + 1 : thisMonth}/{ctrlMultiTimeTable}</b> の予約内容（翌週まで確認可能）</p>
+                <p>- <b>{isLastWeek && ctrlMultiTimeTable <= 7 ? thisMonth + 1 : thisMonth}/{ctrlMultiTimeTable}</b> の予約内容（翌週まで確認可能）</p>
             }
         </>
     );

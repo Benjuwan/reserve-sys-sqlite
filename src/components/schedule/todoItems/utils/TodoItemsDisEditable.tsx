@@ -2,6 +2,7 @@ import { ChangeEvent, memo, useState } from "react";
 import todoStyle from "../styles/todoStyle.module.css";
 import { todoItemType } from "../ts/todoItemType";
 import { useHandleInputValueSanitize } from "@/hooks/useHandleInputValueSanitize";
+import { useCreateTimeSpace } from "@/hooks/useCreateTimeSpace";
 
 type TodoItemsEditableTypes = {
     todoItem: todoItemType;
@@ -12,6 +13,7 @@ function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
     const { todoItem, updateTodoMemoEditState } = props;
 
     const { handleInputValueSanitize } = useHandleInputValueSanitize();
+    const { adjustViewerTimeSpace } = useCreateTimeSpace();
 
     const [checkPassword, setCheckPassword] = useState<string>('');
     const handleCheckPassword: (e: ChangeEvent<HTMLInputElement>) => void = (e: ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
                 {todoItem.person && <p>予約者／部署名：{todoItem.person}</p>}
                 {todoItem.rooms && <p>場所：{todoItem.rooms}</p>}
                 {todoItem.startTime && <p>開始時刻：{todoItem.startTime}</p>}
-                {todoItem.finishTime && <p>終了時刻：{todoItem.finishTime}</p>}
+                {todoItem.finishTime && <p>終了時刻：{adjustViewerTimeSpace(todoItem.finishTime)}</p>}
             </div>
             <label className={todoStyle.pwLabel}><span>パスワード</span><input type="text" value={checkPassword} onInput={handleCheckPassword} />
             </label>
