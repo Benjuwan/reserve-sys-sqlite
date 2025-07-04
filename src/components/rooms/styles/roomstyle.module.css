@@ -1,3 +1,25 @@
+.roomWrapper {
+    position: relative;
+}
+
+.roomInfoToolTip {
+    position: absolute;
+    margin: auto;
+    inset: 1;
+    background-color: #333;
+    color: #fff;
+    border-radius: 4px;
+    overflow-wrap: anywhere;
+    line-height: 1.5;
+    z-index: 1;
+    max-width: 160px;
+    font-size: 12px;
+
+    &.onView {
+        padding: .5em 1em;
+    }
+}
+
 .roomContainer {
     margin-bottom: 1em;
     padding: 1em;
@@ -58,6 +80,7 @@
 
 .timeScheduleWrapper {
     overflow-x: scroll;
+    position: relative;
 }
 
 .timeScheduleWrapper ul {

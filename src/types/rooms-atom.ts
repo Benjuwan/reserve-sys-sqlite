@@ -11,3 +11,6 @@ const rooms: roomsType = [
     { room: '応接室：4F' }
 ];
 export const roomsAtom = atom<roomsType>(rooms);
+
+// 予約内容確認用のツールチップ
+export const roomsInfoToolTipAtom = atom<string | undefined>(undefined);
