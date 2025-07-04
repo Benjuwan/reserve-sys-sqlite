@@ -3,7 +3,7 @@
 import { memo, useMemo, useState } from "react";
 import roomStyle from "./styles/roomstyle.module.css";
 import { useAtom } from "jotai";
-import { roomsAtom } from "@/types/rooms-atom";
+import { roomsAtom, roomsInfoToolTipAtom } from "@/types/rooms-atom";
 import { todoMemoAtom } from "@/types/calendar-atom";
 import About from "../common/About";
 import TimeTable from "./components/TimeTable";
@@ -32,11 +32,19 @@ function Rooms() {
     */
     const [todoMemo] = useAtom(todoMemoAtom);
 
+    const [roomsInfo] = useAtom(roomsInfoToolTipAtom);
+
     const today: number = useMemo(() => new Date().getDate(), []);
     const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(today);
 
     return (
-        <section>
+        <section className={roomStyle.roomWrapper}>
+            {typeof roomsInfo !== 'undefined' &&
+                <p className={`roomInfoToolTip ${roomsInfo.length > 0 ?
+                    `${roomStyle.roomInfoToolTip} ${roomStyle.onView}` :
+                    roomStyle.roomInfoToolTip}`
+                }>{roomsInfo}</p>
+            }
             <MultiTimeTableCtrlBtns props={{
                 ctrlMultiTimeTable: ctrlMultiTimeTable,
                 setCtrlMultiTimeTable: setCtrlMultiTimeTable,

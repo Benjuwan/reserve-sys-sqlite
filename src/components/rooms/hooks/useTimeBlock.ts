@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { todoItemType } from "@/components/schedule/todoItems/ts/todoItemType";
+import { reservedInfoType } from "../ts/roomsType";
 
 export const useTimeBlock = () => {
     // memo.todoID との比較用データ生成処理（当日より1週間分の各部屋ごとのタイムテーブル配列{relevantReservations}を用意するため）
@@ -21,18 +22,35 @@ export const useTimeBlock = () => {
         return theTimeTableViewDay;
     }
 
-    // some 処理によって一つでも true なら true が返却される
-    const checkReservedFlag: (relevantReservations: todoItemType[], timeBlock: number, minBlock: number) => boolean = (
+    // 予約状態（isReserved）の確認及び予約内容情報の取得を行う
+    const getReservedInfo: (relevantReservations: todoItemType[], timeBlock: number, minBlock: number) => reservedInfoType = (
         relevantReservations: todoItemType[],
         timeBlock: number,
         minBlock: number
     ) => {
-        return [...relevantReservations].some(reservation => {
+        let reservedInfo: reservedInfoType = {
+            isReserved: false,
+            content: "",
+            room: undefined,
+            person: undefined
+        }
+
+        for (const todoItem of [...relevantReservations]) {
             const theTime = parseInt(`${timeBlock}${minBlock.toString().padStart(2, '0')}`);
-            const start = parseInt(reservation.startTime?.split(':').join('') ?? '0');
-            const finish = parseInt(reservation.finishTime?.split(':').join('') ?? '0');
-            return theTime >= start && theTime <= finish;
-        });
+            const start = parseInt(todoItem.startTime?.split(':').join('') ?? '0');
+            const finish = parseInt(todoItem.finishTime?.split(':').join('') ?? '0');
+
+            if (theTime >= start && theTime <= finish) {
+                reservedInfo = {
+                    isReserved: theTime >= start && theTime <= finish,
+                    content: todoItem.todoContent,
+                    room: todoItem.rooms,
+                    person: todoItem.person
+                }
+            }
+        }
+
+        return reservedInfo;
     };
 
     // 終了時間のラスト15分を判定
@@ -45,7 +63,7 @@ export const useTimeBlock = () => {
         const targetTimeInMinutes = timeBlock * 60 + minBlock;
 
         // 関連する予約をチェック
-        const bufferCheck: boolean[] = relevantReservations
+        const bufferCheck: boolean[] = [...relevantReservations]
             .filter(todoItem => typeof todoItem.finishTime !== 'undefined')
             .map(todoItem => {
                 //（!）非nullアサーション演算子：nullでないことをTypeScriptに伝える
@@ -72,5 +90,5 @@ export const useTimeBlock = () => {
         return hasConflict;
     };
 
-    return { useCreateTimeTableViewDay, checkReservedFlag, checkLast15 }
+    return { useCreateTimeTableViewDay, getReservedInfo, checkLast15 }
 }
