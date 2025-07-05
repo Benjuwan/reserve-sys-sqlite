@@ -44,10 +44,12 @@ function TimeBlock({ props }: { props: TimeBlockType }) {
                         data-minblock={minBlock}
                         data-reserved={reservedInfo.isReserved}
                         data-last15={reservedInfo.isReserved && isLast15}
-                        data-info={` ${reservedInfo.content.length > 16 ?
+                        data-info={`${reservedInfo.content.length > 16 ?
                             `${reservedInfo.content.slice(0, 16)}...` : reservedInfo.content}
-                            ／${reservedInfo.room?.split('：')[1]}
-                            ／${reservedInfo.person} `}
+                            ${reservedInfo.room && `／${reservedInfo.room?.split('：')[1]}`}
+                            ${reservedInfo.startTime && `／${reservedInfo.startTime}～${reservedInfo.finishTime}`}
+                            ${reservedInfo.person && `／${reservedInfo.person}`}
+                            `}
                         onMouseOver={reservedInfo.content.length > 0 ? hoverEventListener : undefined}
                         onTouchStart={reservedInfo.content.length > 0 ? hoverEventListener : undefined}
                         onMouseLeave={leaveEventListener}

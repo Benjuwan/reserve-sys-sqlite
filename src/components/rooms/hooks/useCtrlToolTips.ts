@@ -15,7 +15,7 @@ export const useCtrlToolTips = () => {
         // x座標の取得
         let xPos: number = 0;
         if (event.nativeEvent instanceof MouseEvent) {
-            xPos = event.nativeEvent.clientX - 80;
+            xPos = event.nativeEvent.clientX / 1.5;
         } else if (event.nativeEvent instanceof TouchEvent) {
             xPos = event.nativeEvent.changedTouches[0].clientX;
         }
@@ -23,7 +23,7 @@ export const useCtrlToolTips = () => {
         // y座標の取得
         let yPos: number = 0;
         if (event.nativeEvent instanceof MouseEvent) {
-            yPos = event.nativeEvent.clientY - 40;
+            yPos = event.nativeEvent.clientY / 1.5;
         } else if (event.nativeEvent instanceof TouchEvent) {
             yPos = event.nativeEvent.changedTouches[0].clientY;
         }

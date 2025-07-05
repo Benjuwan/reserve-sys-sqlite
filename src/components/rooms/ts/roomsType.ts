@@ -5,6 +5,8 @@ export type roomsType = roomType[];
 export type reservedInfoType = {
     isReserved: boolean;
     content: string;
-    room: string | undefined;
-    person: string | undefined;
+    room?: string;
+    person?: string;
+    startTime?: string;
+    finishTime?: string;
 };

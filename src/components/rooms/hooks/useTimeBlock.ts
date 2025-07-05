@@ -1,8 +1,11 @@
 import { useMemo } from "react";
 import { todoItemType } from "@/components/schedule/todoItems/ts/todoItemType";
 import { reservedInfoType } from "../ts/roomsType";
+import { useCreateTimeSpace } from "@/hooks/useCreateTimeSpace";
 
 export const useTimeBlock = () => {
+    const { adjustViewerTimeSpace } = useCreateTimeSpace();
+
     // memo.todoID との比較用データ生成処理（当日より1週間分の各部屋ごとのタイムテーブル配列{relevantReservations}を用意するため）
     const useCreateTimeTableViewDay: (ctrlMultiTimeTable: number) => string = (ctrlMultiTimeTable: number) => {
         const thisYear: number = new Date().getFullYear();
@@ -30,9 +33,7 @@ export const useTimeBlock = () => {
     ) => {
         let reservedInfo: reservedInfoType = {
             isReserved: false,
-            content: "",
-            room: undefined,
-            person: undefined
+            content: ""
         }
 
         for (const todoItem of [...relevantReservations]) {
@@ -45,7 +46,10 @@ export const useTimeBlock = () => {
                     isReserved: theTime >= start && theTime <= finish,
                     content: todoItem.todoContent,
                     room: todoItem.rooms,
-                    person: todoItem.person
+                    person: todoItem.person,
+                    startTime: todoItem.startTime,
+                    // 終了時間はバッファ時間（15分）を減算
+                    finishTime: todoItem.finishTime && adjustViewerTimeSpace(todoItem.finishTime)
                 }
             }
         }
