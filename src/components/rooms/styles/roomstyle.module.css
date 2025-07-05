@@ -3,6 +3,7 @@
 }
 
 .roomInfoToolTip {
+    pointer-events: none;
     position: absolute;
     margin: auto;
     inset: 1;
