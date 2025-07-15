@@ -167,6 +167,7 @@ Twitter: @rich_clark
 
 html {
   font-size: 62.5%;
+  /* Next.js で（将来的に）以下を有効にするには <html>に`data-scroll-behavior="smooth"`属性を付与する必要がある */
   scroll-behavior: smooth;
   /* overflow-x: hidden; コンテンツ・要素のはみ出しによる横スクロール防止 */
   overflow-x: hidden;
