@@ -9,7 +9,7 @@
 
 - 予約内容の重複禁止<br>他の方が先に予約している場合は受け付けません。
 - 予約時間外は受付不可<br>「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。<br>※：`src/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
-- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/components/schedule/calendar/Calendar.tsx`内の`useEffect`での`deleteReservation`処理にて実行
+- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/components/schedule/calendar/hooks/useRemovePastSchedule.ts`での`deleteReservation`処理にて実行
 
 #### 予約方法
 <img width="948" alt="スケジュール欄の日付にあるアイコンをクリック" src="https://github.com/user-attachments/assets/38353bee-9797-4b3d-a228-70ec86d01b84" />
@@ -52,7 +52,7 @@
 - eslint-config-next@15.1.1
 - eslint@8.57.1
 - jotai@2.12.5
-- next@15.3.5
+- next@15.4.1
 - prisma@6.11.1
 - react-dom@19.0.0
 - react@19.0.0

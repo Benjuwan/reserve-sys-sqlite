@@ -3,22 +3,17 @@
 import { memo, useEffect, useState } from "react";
 import calendarStyle from "./styles/calendarStyle.module.css";
 import { calendarItemType } from "./ts/calendarItemType";
-import { todoItemType } from "../todoItems/ts/todoItemType";
 import { useAtom } from "jotai";
-import { fetchTodoMemoAtom, isDesktopViewAtom, todoMemoAtom } from "@/types/calendar-atom";
+import { fetchTodoMemoAtom, isDesktopViewAtom } from "@/types/calendar-atom";
 import PrevNextMonthBtns from "./components/PrevNextMonthBtns";
 import DaydateList from "./components/DaydateList";
 import DaysList from "./components/DaysList";
 import { useGetMonthDays } from "./hooks/useGetMonthDays";
-import { useDeleteTodoItem } from "../todoItems/hooks/useDeleteTodoItem";
+import { useRemovePastSchedule } from "./hooks/useRemovePastSchedule";
 
 function Calendar() {
     const [, setDesktopView] = useAtom(isDesktopViewAtom);
     const [fetchTodoMemo] = useAtom(fetchTodoMemoAtom);
-    const [, setTodoMemo] = useAtom(todoMemoAtom);
-
-    const { getMonthDays } = useGetMonthDays();
-    const { deleteReservation } = useDeleteTodoItem();
 
     const currYear = new Date().getFullYear();
     const currMonth = new Date().getMonth() + 1;
@@ -26,42 +21,14 @@ function Calendar() {
     const [ctrlMonth, setCtrlMonth] = useState<number>(currMonth);
     const [days, setDays] = useState<calendarItemType[]>([]);
 
-    useEffect(() => {
-        if (window.matchMedia("(min-width: 1025px)").matches) {
+    const { getMonthDays } = useGetMonthDays();
+    const { removePastSchedule } = useRemovePastSchedule();
+
+    const handleCheckIsDesktopView: () => void = () => {
+        if (isMounted && window.matchMedia("(min-width: 1025px)").matches) {
             setDesktopView(true);
         }
-
-        if (fetchTodoMemo.length > 0) {
-            const date: Date = new Date();
-            const compareTarget_present: Date = new Date(`${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
-
-            const exceptPastTodoMemos: todoItemType[] = [...fetchTodoMemo].filter(memo => {
-                /* compareTarget_present と「同じ記述及び文字列型にする」ための整形処理 */
-                const adjustMemoTimeData: string = memo.todoID.split('/').map((d, i) => {
-                    if (i !== 0) {
-                        // 月日のみ「-MM, -DD」の形に整形（※出力結果は YYYY-MM-DD ）
-                        return `-${d.toString().padStart(2, '0')}`;
-                    } else {
-                        return d;
-                    }
-                }).join('');
-                const compareTarget_memoDate: Date = new Date(adjustMemoTimeData);
-
-                if (compareTarget_memoDate >= compareTarget_present) {
-                    return true;
-                } else {
-                    /* 過去分はDBから削除 */
-                    deleteReservation(memo.id);
-                    return false; // 明示的に false を返す
-                }
-            });
-
-            /* 当日以降の予定のみスケジュールとして管理・把握 */
-            setTodoMemo(exceptPastTodoMemos);
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }
 
     const jumpThisMonth: () => void = () => {
         const thisYear: number = new Date().getFullYear();
@@ -71,6 +38,22 @@ function Calendar() {
         getMonthDays(thisYear, thisMonth, setDays);
         window.scrollTo(0, 0);
     }
+
+    // 418ハイドレーションエラー対策（用のクライアントサイドでの処理を確実に保証するState）
+    const [isMounted, setIsMounted] = useState(false);
+
+    useEffect(() => {
+        setIsMounted(true);
+    }, []);
+
+    useEffect(() => {
+        if (!isMounted) {
+            return;
+        }
+        handleCheckIsDesktopView();
+        removePastSchedule(isMounted, fetchTodoMemo);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isMounted, fetchTodoMemo]);
 
     useEffect(() => {
         getMonthDays(ctrlYear, ctrlMonth, setDays);
