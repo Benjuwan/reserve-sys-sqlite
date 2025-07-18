@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import roomStyle from "../styles/roomstyle.module.css";
 import ViewCurrentTimeTableDay from "./ViewCurrentTimeTableDay";
 
@@ -13,7 +13,9 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
 
     // 当年当月の「0日目」を取得（翌月の0日＝当月の最終日）し、その日付（最終日）を出す
     // 例：const thisLastDay = new Date(2025, 6, 0).getDate()
-    const thisLastDay = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+    const thisLastDay = useMemo(() => {
+        return new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+    }, []);
 
     // 最終週かどうか判定
     const isLastWeek: boolean = today > (thisLastDay - 7);

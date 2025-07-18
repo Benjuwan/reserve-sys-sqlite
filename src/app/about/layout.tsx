@@ -11,10 +11,8 @@ export default function theAboutPageLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main>
-            <section>
-                {children}
-            </section>
-        </main>
+        <section>
+            {children}
+        </section>
     );
 }

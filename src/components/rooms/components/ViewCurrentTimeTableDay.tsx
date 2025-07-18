@@ -10,7 +10,7 @@ function ViewCurrentTimeTableDay({ ctrlMultiTimeTable, isLastWeek }: { ctrlMulti
         <>
             {pathName.length === 1 &&
                 // [Minified React error #418 対応](https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors)
-                <p suppressHydrationWarning={true}>- <b>{isLastWeek && ctrlMultiTimeTable <= 7 ? thisMonth + 1 : thisMonth}/{ctrlMultiTimeTable}</b> の予約内容（翌週まで確認可能）</p>
+                <p suppressHydrationWarning={true}>- <b>{isLastWeek && ctrlMultiTimeTable <= 7 ? thisMonth + 1 : thisMonth}/{ctrlMultiTimeTable}</b> の予約内容（※7日後まで確認可能）</p>
             }
         </>
     );

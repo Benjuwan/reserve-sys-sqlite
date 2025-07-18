@@ -16,7 +16,7 @@ function RoomsAboutViewer() {
     }
 
     return (
-        <div role="button" className={isAboutOpen ? `${roomStyle.aboutContainer} ${roomStyle.onView}` : roomStyle.aboutContainer} onClick={aboutLightBox}>
+        <div className={isAboutOpen ? `${roomStyle.aboutContainer} ${roomStyle.onView}` : roomStyle.aboutContainer} onClick={aboutLightBox}>
             <h2>◎ 使い方の説明や注意事項</h2>
             <section><About /></section>
         </div>
