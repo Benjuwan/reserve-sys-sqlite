@@ -20,7 +20,7 @@ function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef, validationT
         <>
             {rooms.length > 0 &&
                 <>
-                    <label><span>場所</span></label>
+                    <label htmlFor="rooms"><span>場所</span></label>
                     <select name="rooms" id="rooms" ref={roomRef} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)}>
                         {rooms.map((room, i) => (
                             <option key={i} value={room.room}>{room.room}</option>

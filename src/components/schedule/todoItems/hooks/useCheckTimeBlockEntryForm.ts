@@ -49,8 +49,18 @@ export const useCheckTimeBlockEntryForm = () => {
                 const theStartTime = typeof todoItems.startTime !== 'undefined' ? parseInt(todoItems.startTime.replace(':', '')) : theTime;
                 const theFinishTime = typeof todoItems.finishTime !== 'undefined' ? parseInt(todoItems.finishTime.replace(':', '')) : theTime;
 
-                // 00分スタートと、それ以外の場合で差計算用の数値を調整（hh:00 -> -hh:46, hh:45 -> hh:31）
-                const calcBufferingStartTime = memoStartTime.toString().slice(2, 4) === '00' ? 54 : 14;
+                // 00分スタートと、それ以外の場合で差計算用の数値を調整
+                const forCalcBufferingStartTime_getMin = memoStartTime.toString().slice(2, 4);
+
+                // 既存予約の開始時刻の分の一桁目
+                const forCalcBufferingStartTime_getMin_1st: number = parseInt(forCalcBufferingStartTime_getMin.at(-1) ?? '0');
+
+                const calcBufferingStartTime = parseInt(forCalcBufferingStartTime_getMin) < 15 ?
+                    // 既存予約の開始時刻の分が15分以下の場合は基準値に当該分数を加算して調整（例：13:12 の場合 -> 1312-(54+12) = 12:46）
+                    54 + forCalcBufferingStartTime_getMin_1st :
+                    // hh:00 -> -hh:46, hh:45 -> hh:31
+                    forCalcBufferingStartTime_getMin === '00' ? 54 :
+                        forCalcBufferingStartTime_getMin_1st % 5 === 0 ? 14 : 15;
 
                 // console.log("既存予約:", memoStartTime, memoFinishTime);
                 // console.log("チェック対象:", theStartTime, theFinishTime);
