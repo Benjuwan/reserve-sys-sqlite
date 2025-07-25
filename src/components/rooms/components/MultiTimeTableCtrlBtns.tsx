@@ -22,16 +22,20 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
 
     // 翌日のタイムテーブルを制御する関数
     const ctrlNextTimeTable: (day: number) => void = (day: number) => {
-        // 最終日の場合は来月初日をセットする
-        if (day === thisLastDay) {
-            setCtrlMultiTimeTable(1);
+        const oneWeekLater: number = today + 7;
+        const isPassedThisMonth: boolean = day <= 7 && day >= oneWeekLater - thisLastDay;
+
+        // 当日より起算して7日を超える場合は何もしない（タイムテーブルの表示は7日後までに制限）
+        if (day >= oneWeekLater || (isLastWeek && isPassedThisMonth)) {
             return;
         }
 
-        // 当日より起算して7日を超える場合は何もしない（タイムテーブルの表示は翌週までに制限）
-        const oneWeekLater: number = today + 7;
-        const isPassedThisMonth: boolean = day <= 7 && day >= oneWeekLater - thisLastDay;
-        if (day >= oneWeekLater || (isLastWeek && isPassedThisMonth)) {
+        //（7日後がちょうど当月の最終日かつ）最終日を超過した場合は来月初日をセットする
+        if (
+            (oneWeekLater - thisLastDay === 0 && day > thisLastDay) ||
+            day >= thisLastDay
+        ) {
+            setCtrlMultiTimeTable(1);
             return;
         }
 
