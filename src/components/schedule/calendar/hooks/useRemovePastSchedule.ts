@@ -2,17 +2,25 @@ import { todoItemType } from "../../todoItems/ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom } from "@/types/calendar-atom";
 import { useDeleteTodoItem } from "../../todoItems/hooks/useDeleteTodoItem";
+import { useEffect, useState } from "react";
 
 export const useRemovePastSchedule = () => {
     const [, setTodoMemo] = useAtom(todoMemoAtom);
     const { deleteReservation } = useDeleteTodoItem();
+
+    /* 418 hydration-error 対策 */
+    const init_present: Date = new Date();
+    const [compareTarget_present, setPresent] = useState<Date>(init_present);
+    useEffect(() => {
+        const rendered_present: Date = new Date();
+        setPresent(rendered_present);
+    }, []);
 
     const removePastSchedule: (isMounted: boolean, fetchTodoMemo: todoItemType[]) => void = (
         isMounted: boolean,
         fetchTodoMemo: todoItemType[]
     ) => {
         if (isMounted && fetchTodoMemo.length > 0) {
-            const compareTarget_present: Date = new Date();
 
             // Day（曜日） Month（月） Date（日付） year（年） 09:00:00 GMT+0900 (GMT+09:00)
             compareTarget_present.setHours(9, 0, 0, 0);
