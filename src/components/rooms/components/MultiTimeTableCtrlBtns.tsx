@@ -1,20 +1,26 @@
-import { memo, useMemo } from "react";
+import { memo, useEffect, useState } from "react";
 import roomStyle from "../styles/roomstyle.module.css";
 import ViewCurrentTimeTableDay from "./ViewCurrentTimeTableDay";
 
 type ctrlBtnsProps = {
     ctrlMultiTimeTable: number;
     setCtrlMultiTimeTable: React.Dispatch<React.SetStateAction<number>>;
-    today: number;
 };
 
 function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
-    const { ctrlMultiTimeTable, setCtrlMultiTimeTable, today } = props;
+    const { ctrlMultiTimeTable, setCtrlMultiTimeTable } = props;
 
-    // 当年当月の「0日目」を取得（翌月の0日＝当月の最終日）し、その日付（最終日）を出す
-    // 例：const thisLastDay = new Date(2025, 6, 0).getDate()
-    const thisLastDay = useMemo(() => {
-        return new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+    /* 418 hydration-error 対策 */
+    const [thisLastDay, setThisLastDay] = useState<number>(0);
+    const [today, setToday] = useState<number>(0);
+    useEffect(() => {
+        // 当年当月の「0日目」を取得（翌月の0日＝当月の最終日）し、その日付（最終日）を出す 
+        // 例：const thisLastDay = new Date(2025, 6, 0).getDate() 
+        const targetLastDay: number = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+        setThisLastDay(targetLastDay);
+
+        const targetToday: number = new Date().getDate();
+        setToday(targetToday);
     }, []);
 
     // 最終週かどうか判定
