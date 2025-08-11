@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import roomStyle from "./styles/roomstyle.module.css";
 import { useAtom } from "jotai";
 import { roomsAtom, roomsInfoToolTipAtom } from "@/types/rooms-atom";
@@ -31,11 +31,14 @@ function Rooms() {
      * React Hook "useAtom" may be executed more than once. Possibly because it is called in a loop. React Hooks must be called in the exact same order in every component render.
     */
     const [todoMemo] = useAtom(todoMemoAtom);
-
     const [roomsInfo] = useAtom(roomsInfoToolTipAtom);
 
-    const today: number = useMemo(() => new Date().getDate(), []);
-    const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(today);
+    /* 418 hydration-error 対策 */
+    const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(0);
+    useEffect(() => {
+        const targetToday: number = new Date().getDate();
+        setCtrlMultiTimeTable(targetToday);
+    }, []);
 
     return (
         <section className={roomStyle.roomWrapper}>
@@ -47,8 +50,7 @@ function Rooms() {
             }
             <MultiTimeTableCtrlBtns props={{
                 ctrlMultiTimeTable: ctrlMultiTimeTable,
-                setCtrlMultiTimeTable: setCtrlMultiTimeTable,
-                today: today
+                setCtrlMultiTimeTable: setCtrlMultiTimeTable
             }} />
             {rooms.map((room, i) => (
                 <div key={i} className={roomStyle.roomContainer}>

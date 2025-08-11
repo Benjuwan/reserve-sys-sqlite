@@ -1,19 +1,18 @@
+import { useEffect, useState } from "react";
 import { todoItemType } from "../../todoItems/ts/todoItemType";
 import { useAtom } from "jotai";
 import { todoMemoAtom } from "@/types/calendar-atom";
 import { useDeleteTodoItem } from "../../todoItems/hooks/useDeleteTodoItem";
-import { useEffect, useState } from "react";
 
 export const useRemovePastSchedule = () => {
     const [, setTodoMemo] = useAtom(todoMemoAtom);
     const { deleteReservation } = useDeleteTodoItem();
 
     /* 418 hydration-error 対策 */
-    const init_present: Date = new Date();
-    const [compareTarget_present, setPresent] = useState<Date>(init_present);
+    const initCurrentDate: Date = new Date();
+    const [currentDate, setCurrentDate] = useState<Date>(initCurrentDate);
     useEffect(() => {
-        const rendered_present: Date = new Date();
-        setPresent(rendered_present);
+        setCurrentDate(new Date());
     }, []);
 
     const removePastSchedule: (isMounted: boolean, fetchTodoMemo: todoItemType[]) => void = (
@@ -21,12 +20,11 @@ export const useRemovePastSchedule = () => {
         fetchTodoMemo: todoItemType[]
     ) => {
         if (isMounted && fetchTodoMemo.length > 0) {
-
             // Day（曜日） Month（月） Date（日付） year（年） 09:00:00 GMT+0900 (GMT+09:00)
-            compareTarget_present.setHours(9, 0, 0, 0);
+            currentDate.setHours(9, 0, 0, 0);
 
             const exceptPastTodoMemos: todoItemType[] = [...fetchTodoMemo].filter(memo => {
-                /* compareTarget_present と「同じ記述及び文字列型にする」ための整形処理 */
+                /* currentDate と「同じ記述及び文字列型にする」ための整形処理 */
                 const adjustMemoTimeData: string = memo.todoID.split('/').map((d, i) => {
                     if (i !== 0) {
                         // 月日のみ「-MM, -DD」の形に整形（※出力結果は YYYY-MM-DD ）
@@ -38,7 +36,7 @@ export const useRemovePastSchedule = () => {
 
                 const compareTarget_memoDate: Date = new Date(adjustMemoTimeData);
 
-                if (compareTarget_memoDate >= compareTarget_present) {
+                if (compareTarget_memoDate >= currentDate) {
                     return true;
                 } else {
                     /* 過去分はDBから削除 */
