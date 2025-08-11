@@ -51,7 +51,7 @@
 - @types/uuid@10.0.0
 - eslint-config-next@15.1.1
 - eslint@8.57.1
-- jotai@2.13.0
+- jotai@2.13.1
 - next@15.4.6
 - prisma@6.13.0
 - react-dom@19.0.0

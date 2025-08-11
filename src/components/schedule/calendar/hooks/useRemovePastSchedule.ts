@@ -15,11 +15,8 @@ export const useRemovePastSchedule = () => {
         setCurrentDate(new Date());
     }, []);
 
-    const removePastSchedule: (isMounted: boolean, fetchTodoMemo: todoItemType[]) => void = (
-        isMounted: boolean,
-        fetchTodoMemo: todoItemType[]
-    ) => {
-        if (isMounted && fetchTodoMemo.length > 0) {
+    const removePastSchedule: (fetchTodoMemo: todoItemType[]) => void = (fetchTodoMemo: todoItemType[]) => {
+        if (fetchTodoMemo.length > 0) {
             // Day（曜日） Month（月） Date（日付） year（年） 09:00:00 GMT+0900 (GMT+09:00)
             currentDate.setHours(9, 0, 0, 0);
 
