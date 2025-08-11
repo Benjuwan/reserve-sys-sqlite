@@ -25,7 +25,7 @@ function Calendar() {
     const { removePastSchedule } = useRemovePastSchedule();
 
     const handleCheckIsDesktopView: () => void = () => {
-        if (isMounted && window.matchMedia("(min-width: 1025px)").matches) {
+        if (window.matchMedia("(min-width: 1025px)").matches) {
             setDesktopView(true);
         }
     }
@@ -39,21 +39,11 @@ function Calendar() {
         window.scrollTo(0, 0);
     }
 
-    // 418ハイドレーションエラー対策（用のクライアントサイドでの処理を確実に保証するState）
-    const [isMounted, setIsMounted] = useState(false);
-
     useEffect(() => {
-        setIsMounted(true);
-    }, []);
-
-    useEffect(() => {
-        if (!isMounted) {
-            return;
-        }
         handleCheckIsDesktopView();
-        removePastSchedule(isMounted, fetchTodoMemo);
+        removePastSchedule(fetchTodoMemo);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMounted, fetchTodoMemo]);
+    }, [fetchTodoMemo]);
 
     useEffect(() => {
         getMonthDays(ctrlYear, ctrlMonth, setDays);
