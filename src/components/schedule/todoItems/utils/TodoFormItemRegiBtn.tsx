@@ -23,8 +23,9 @@ function TodoFormItemRegiBtn({ todoItems, resetStates, validationTxtRef }: {
         const inCorrectTimeSchedule: boolean = (typeof todoItems.startTime !== 'undefined' && typeof todoItems.finishTime !== 'undefined') ?
             parseInt(todoItems.startTime.replace(':', '')) > parseInt(todoItems.finishTime.replace(':', ''))
             : false;
+        const isSetTimeSchedule: boolean = (typeof todoItems.startTime !== 'undefined' && todoItems.startTime.length === 0) || (typeof todoItems.finishTime !== 'undefined' && todoItems.finishTime.length === 0);
 
-        return isCheckPw || isCheckContent || isValidationTxt || inCorrectTimeSchedule;
+        return isCheckPw || isCheckContent || isValidationTxt || inCorrectTimeSchedule || isSetTimeSchedule;
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [todoItems]);
