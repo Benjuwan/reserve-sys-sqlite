@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "jotai": "^2.10.0",
@@ -16,6 +16,7 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@prisma/client": "^6.5.0",
     "@types/node": "^22.13.4",
     "@types/react": "19.0.1",
