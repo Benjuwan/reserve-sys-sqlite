@@ -33,7 +33,6 @@ function DaysList({ days }: { days: calendarItemType[] }) {
             thisMonth: new Date().getMonth() + 1,
             today: new Date().getDate()
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

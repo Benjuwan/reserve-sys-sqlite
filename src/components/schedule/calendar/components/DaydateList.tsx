@@ -5,7 +5,6 @@ import { calendarItemType } from "../ts/calendarItemType";
 function DaydateList({ days }: { days: calendarItemType[] }) {
     const theOneWeek = useMemo(() => {
         return days.filter((_, i) => i < 7);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [days]);
 
     return (

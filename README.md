@@ -46,19 +46,19 @@
 ## 技術構成
 - @eslint/eslintrc@3.3.1
 - @prisma/client@6.17.1
-- @types/node@22.18.10
-- @types/react-dom@19.0.2 overridden
-- @types/react@19.0.1 overridden
+- @types/node@24.8.1
+- @types/react-dom@19.2.2
+- @types/react@19.2.2
 - @types/uuid@10.0.0
-- eslint-config-next@15.1.1
-- eslint@8.57.1
+- eslint-config-next@15.5.6
+- eslint@9.38.0
 - jotai@2.15.0
-- next@15.5.5
+- next@15.5.6
 - prisma@6.17.1
-- react-dom@19.0.0
-- react@19.0.0
+- react-dom@19.2.0
+- react@19.2.0
 - typescript@5.9.3
-- uuid@11.1.0
+- uuid@13.0.0
 
 > [!NOTE]
 > - `npm audit`で定期的に脆弱性のチェックを行う
