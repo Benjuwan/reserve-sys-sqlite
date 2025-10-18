@@ -6,7 +6,6 @@ function Footer() {
     const thisYear: number = useMemo(() => {
         const data: Date = new Date();
         return data.getFullYear();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
