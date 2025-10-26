@@ -1,6 +1,6 @@
 "use client"
 
-import { memo, useEffect, useState } from "react";
+import { memo, useState } from "react";
 import roomStyle from "./styles/roomstyle.module.css";
 import { useAtom } from "jotai";
 import { roomsAtom, roomsInfoToolTipAtom } from "@/types/rooms-atom";
@@ -8,6 +8,11 @@ import { todoMemoAtom } from "@/types/calendar-atom";
 import About from "../common/About";
 import TimeTable from "./components/TimeTable";
 import MultiTimeTableCtrlBtns from "./components/MultiTimeTableCtrlBtns";
+
+type roomsPropsType = {
+    theThisLastDay: number;
+    theToday: number
+};
 
 function RoomsAboutViewer() {
     const [isAboutOpen, setIsAboutOpen] = useState<boolean>(false);
@@ -23,7 +28,9 @@ function RoomsAboutViewer() {
     );
 }
 
-function Rooms() {
+function Rooms({ props }: { props: roomsPropsType }) {
+    const { theThisLastDay, theToday } = props;
+
     const [rooms] = useAtom(roomsAtom);
 
     /**
@@ -33,12 +40,7 @@ function Rooms() {
     const [todoMemo] = useAtom(todoMemoAtom);
     const [roomsInfo] = useAtom(roomsInfoToolTipAtom);
 
-    /* 418 hydration-error 対策 */
-    const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(0);
-    useEffect(() => {
-        const targetToday: number = new Date().getDate();
-        setCtrlMultiTimeTable(targetToday);
-    }, []);
+    const [ctrlMultiTimeTable, setCtrlMultiTimeTable] = useState<number>(theToday);
 
     return (
         <section className={roomStyle.roomWrapper}>
@@ -50,7 +52,9 @@ function Rooms() {
             }
             <MultiTimeTableCtrlBtns props={{
                 ctrlMultiTimeTable: ctrlMultiTimeTable,
-                setCtrlMultiTimeTable: setCtrlMultiTimeTable
+                setCtrlMultiTimeTable: setCtrlMultiTimeTable,
+                theToday: theToday,
+                theThisLastDay: theThisLastDay
             }} />
             {rooms.map((room, i) => (
                 <div key={i} className={roomStyle.roomContainer}>

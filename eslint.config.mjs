@@ -6,8 +6,11 @@ import reactHooks from "eslint-plugin-react-hooks";
 /* --------------- /// Next.js利用時の追加設定 /// --------------- */
 
 // [Next.js推奨用](https://nextjs.org/docs/app/api-reference/config/eslint#migrating-existing-config)のESLint設定
-import js from '@eslint/js'
-import { FlatCompat } from '@eslint/eslintrc'
+import js from '@eslint/js';
+import { FlatCompat } from '@eslint/eslintrc';
+import { defineConfig, globalIgnores } from "eslint/config";
+import nextVitals from "eslint-config-next/core-web-vitals";
+import nextTs from "eslint-config-next/typescript";
 
 const compat = new FlatCompat({
     // import.meta.dirname is available after Node.js v20.11.0
@@ -18,25 +21,24 @@ const compat = new FlatCompat({
 /* --------------- /// Next.js利用時の追加設定 /// --------------- */
 
 /* ESLint設定 */
-const eslintConfig = [
-    /* 除外するファイル/ディレクトリを指定 */
-    {
-        ignores: [
-            "next-env.d.ts",    // Next.js が自動生成する環境定義ファイル
-            ".next/**",         // Next.jsのビルド出力ディレクトリ
-            "out/**",           // Next.jsの静的エクスポートディレクトリ
-            "node_modules/**",  // npmパッケージディレクトリ
-            "build/**",         // ビルド成果物ディレクトリ
-            "dist/**"           // 配布用ディレクトリ
-        ]
-    },
+const eslintConfig = defineConfig([
+    // Next16作成時に用意されるデフォルトのESLintを踏襲
 
-    /* --------------- /// Next.js利用時の追加設定 /// --------------- */
+    ...nextVitals,
+    ...nextTs,
 
-    /* Next.js推奨設定（※ESLintの適用は後述優先なので総合設定よりも前に適用させておく）*/
-    ...compat.config({
-        extends: ['next/core-web-vitals'],  // Next.js 14以降の推奨設定
-    }),
+    // Override default ignores of eslint-config-next.
+    globalIgnores([
+        "next-env.d.ts",    // Next.js が自動生成する環境定義ファイル
+        ".next/**",         // Next.jsのビルド出力ディレクトリ
+        "out/**",           // Next.jsの静的エクスポートディレクトリ
+        "node_modules/**",  // npmパッケージディレクトリ
+        "build/**",         // ビルド成果物ディレクトリ
+        "dist/**"           // 配布用ディレクトリ
+    ]),
+
+    // Next16アップグレード時の循環エラー対策
+    ...compat.extends("plugin:@typescript-eslint/recommended"),
 
     /* Next.js設定への追加ルール（※ESLintの適用は後述優先なので総合設定よりも前に適用させておく）*/
     {
@@ -125,6 +127,6 @@ const eslintConfig = [
             "prefer-const": "warn"  // 再代入されない変数にはconstを推奨（意図しない再代入を防ぐ）
         }
     }
-];
+]);
 
 export default eslintConfig

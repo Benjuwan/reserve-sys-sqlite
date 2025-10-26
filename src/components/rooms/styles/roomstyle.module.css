@@ -5,8 +5,7 @@
 .roomInfoToolTip {
     pointer-events: none;
     position: absolute;
-    margin: auto;
-    inset: 1;
+    height: fit-content;
     background-color: #333;
     color: #fff;
     border-radius: 4px;

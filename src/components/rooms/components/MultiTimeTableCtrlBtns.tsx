@@ -1,35 +1,30 @@
-import { memo, useEffect, useState } from "react";
+import { memo } from "react";
 import roomStyle from "../styles/roomstyle.module.css";
 import ViewCurrentTimeTableDay from "./ViewCurrentTimeTableDay";
 
 type ctrlBtnsProps = {
     ctrlMultiTimeTable: number;
     setCtrlMultiTimeTable: React.Dispatch<React.SetStateAction<number>>;
+    theToday: number;
+    theThisLastDay: number;
 };
 
 function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
-    const { ctrlMultiTimeTable, setCtrlMultiTimeTable } = props;
+    const { ctrlMultiTimeTable, setCtrlMultiTimeTable, theToday, theThisLastDay } = props;
 
-    /* 418 hydration-error 対策 */
-    const [thisLastDay, setThisLastDay] = useState<number>(0);
-    const [today, setToday] = useState<number>(0);
-    useEffect(() => {
-        // 当年当月の「0日目」を取得（翌月の0日＝当月の最終日）し、その日付（最終日）を出す 
-        // 例：const thisLastDay = new Date(2025, 6, 0).getDate() 
-        const targetLastDay: number = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
-        setThisLastDay(targetLastDay);
+    // 各種条件判定に利用するための「今日・本日」の固定値
+    const solidValue_theToday: number = theToday;
 
-        const targetToday: number = new Date().getDate();
-        setToday(targetToday);
-    }, []);
+    // タイムテーブルの表示制御に利用するための「今日・本日」の可変値
+    const liquidValue_theToday: number = ctrlMultiTimeTable;
 
     // 最終週かどうか判定
-    const isLastWeek: boolean = today > (thisLastDay - 7);
+    const isLastWeek: boolean = solidValue_theToday > (theThisLastDay - 7);
 
     // 翌日のタイムテーブルを制御する関数
     const ctrlNextTimeTable: (day: number) => void = (day: number) => {
-        const oneWeekLater: number = today + 7;
-        const isPassedThisMonth: boolean = day <= 7 && day >= oneWeekLater - thisLastDay;
+        const oneWeekLater: number = solidValue_theToday + 7;
+        const isPassedThisMonth: boolean = day <= 7 && day >= oneWeekLater - theThisLastDay;
 
         // 当日より起算して7日を超える場合は何もしない（タイムテーブルの表示は7日後までに制限）
         if (day >= oneWeekLater || (isLastWeek && isPassedThisMonth)) {
@@ -38,8 +33,8 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
 
         //（7日後がちょうど当月の最終日かつ）最終日を超過した場合は来月初日をセットする
         if (
-            (oneWeekLater - thisLastDay === 0 && day > thisLastDay) ||
-            day >= thisLastDay
+            (oneWeekLater - theThisLastDay === 0 && day > theThisLastDay) ||
+            day >= theThisLastDay
         ) {
             setCtrlMultiTimeTable(1);
             return;
@@ -50,12 +45,12 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
 
     // 前日のタイムテーブルを制御する関数
     const ctrlPrevTimeTable: (day: number) => void = (day: number) => {
-        if (day === today) {
+        if (day === solidValue_theToday) {
             return;
         }
 
         if (day === 1) {
-            setCtrlMultiTimeTable(thisLastDay);
+            setCtrlMultiTimeTable(theThisLastDay);
             return;
         }
 
@@ -65,12 +60,13 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
     // ボタンのクリックイベントハンドラ（タイムテーブルの制御を担う）
     const handleCtrlMultiTimeTable: (e: React.MouseEvent<HTMLButtonElement>) => void = (e: React.MouseEvent<HTMLButtonElement>) => {
         const btnDataAttr: string = e.currentTarget.getAttribute('data-btn') ?? '';
+
         if (btnDataAttr === 'prev') {
-            ctrlPrevTimeTable(ctrlMultiTimeTable);
+            ctrlPrevTimeTable(liquidValue_theToday);
         } else if (btnDataAttr === 'next') {
-            ctrlNextTimeTable(ctrlMultiTimeTable);
+            ctrlNextTimeTable(liquidValue_theToday);
         }
-    };
+    }
 
     return (
         <>
@@ -78,7 +74,7 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
                 <button onClick={handleCtrlMultiTimeTable} data-btn="prev">&lt; 前日</button>
                 <button onClick={handleCtrlMultiTimeTable} data-btn="next">翌日 &gt;</button>
             </div>
-            <ViewCurrentTimeTableDay ctrlMultiTimeTable={ctrlMultiTimeTable} isLastWeek={isLastWeek} />
+            <ViewCurrentTimeTableDay ctrlMultiTimeTable={liquidValue_theToday} isLastWeek={isLastWeek} />
         </>
     );
 }
