@@ -34,7 +34,7 @@ function TodoForm({ props }: { props: TodoFormType }) {
         edit: todoItem ? todoItem.edit : false,
         pw: '',
         person: todoItem ? todoItem.person : '',
-        rooms: roomRef.current !== null ? roomRef.current.value : rooms[0].room,
+        rooms: rooms[0].room,
         startTime: '',
         finishTime: ''
     }
