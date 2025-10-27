@@ -34,7 +34,7 @@ export const useCtrlToolTips = () => {
             // x座標の取得
             let xPos: number = 0;
             if (event.nativeEvent instanceof MouseEvent) {
-                xPos = event.nativeEvent.clientX / 1.5;
+                xPos = event.nativeEvent.clientX;
             } else if (event.nativeEvent instanceof TouchEvent) {
                 xPos = event.nativeEvent.changedTouches[0].clientX;
             }
@@ -42,14 +42,16 @@ export const useCtrlToolTips = () => {
             // y座標の取得
             let yPos: number = 0;
             if (event.nativeEvent instanceof MouseEvent) {
-                yPos = event.nativeEvent.clientY / 1.5;
+                yPos = event.nativeEvent.clientY;
             } else if (event.nativeEvent instanceof TouchEvent) {
-                yPos = event.nativeEvent.changedTouches[0].clientY / 2;
+                yPos = event.nativeEvent.changedTouches[0].clientY;
             }
 
             const roomInfoToolTip: HTMLElement | null = document.querySelector('.roomInfoToolTip');
+
             if (roomInfoToolTip && (xPos > 0 && yPos > 0)) {
                 roomInfoToolTip.style.cssText = `transform:translate(${xPos}px, ${yPos}px);`;
+                roomInfoToolTip.style.setProperty('display', 'block'); // ツールチップ表示（ちらつき防止のため位置調整後に描画する）
             }
 
             timerRef.current = null; // タイマーをクリア
