@@ -45,16 +45,16 @@
 
 ## 技術構成
 - @eslint/eslintrc@3.3.1
-- @prisma/client@6.18.0
-- @types/node@24.9.1
+- @prisma/client@6.19.0
+- @types/node@24.10.0
 - @types/react-dom@19.2.2
 - @types/react@19.2.2
 - @types/uuid@10.0.0
-- eslint-config-next@16.0.0
-- eslint@9.38.0
-- jotai@2.15.0
-- next@16.0.0
-- prisma@6.18.0
+- eslint-config-next@16.0.1
+- eslint@9.39.1
+- jotai@2.15.1
+- next@16.0.1
+- prisma@6.19.0
 - react-dom@19.2.0
 - react@19.2.0
 - typescript@5.9.3
