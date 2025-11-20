@@ -18,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" data-scroll-behavior="smooth">
+    <html lang="ja">
       <body>
         <Header />
         <div className="globalWrapper">
