@@ -46,19 +46,31 @@
 ## 技術構成
 - @eslint/eslintrc@3.3.1
 - @prisma/client@6.19.0
-- @types/node@24.10.0
-- @types/react-dom@19.2.2
-- @types/react@19.2.2
+- @types/node@24.10.1
+- @types/react-dom@19.2.3
+- @types/react@19.2.6
 - @types/uuid@10.0.0
-- eslint-config-next@16.0.1
+- eslint-config-next@16.0.3
 - eslint@9.39.1
 - jotai@2.15.1
-- next@16.0.1
+- next@16.0.3
 - prisma@6.19.0
 - react-dom@19.2.0
 - react@19.2.0
 - typescript@5.9.3
 - uuid@13.0.0
+
+---
+
+> [!NOTE]
+> - Prismaクライアントを更新<br>
+> **各種ライブラリのアップデート・アップグレードを行った後にprisma起因で立ち上がらなかったり、ビルドできなかったり**する場合<br>
+> 以下のコマンドでPrismaクライアントを更新して対応する
+```bash
+npx prisma generate
+```
+
+---
 
 > [!NOTE]
 > - `npm audit`で定期的に脆弱性のチェックを行う

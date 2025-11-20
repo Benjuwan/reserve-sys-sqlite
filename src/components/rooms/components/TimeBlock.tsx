@@ -51,8 +51,8 @@ function TimeBlock({ props }: { props: TimeBlockType }) {
                             ${reservedInfo.person && `／${reservedInfo.person}`}
                             `}
                         onMouseOver={reservedInfo.content.length > 0 ? hoverEventListener : undefined}
-                        onTouchStart={reservedInfo.content.length > 0 ? hoverEventListener : undefined}
                         onMouseLeave={leaveEventListener}
+                        onClick={reservedInfo.content.length > 0 ? hoverEventListener : undefined}
                         onTouchEnd={leaveEventListener}
                     >&nbsp;</div>
                 )
