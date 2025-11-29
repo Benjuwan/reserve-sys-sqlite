@@ -10,8 +10,7 @@ function Footer() {
 
     return (
         <footer className={baseStyle.theFooter}>
-            {/* [Minified React error #418 対応](https://react.dev/reference/react-dom/client/hydrateRoot#suppressing-unavoidable-hydration-mismatch-errors) */}
-            <p><small suppressHydrationWarning={true}>&copy; {thisYear} <Link href={'https://github.com/benjuwan'} target="_blank">benjuwan</Link></small></p>
+            <p><small>&copy; {thisYear} <Link href={'https://github.com/benjuwan'} target="_blank">benjuwan</Link></small></p>
         </footer>
     );
 }
