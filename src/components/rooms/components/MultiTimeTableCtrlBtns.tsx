@@ -1,19 +1,18 @@
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 import roomStyle from "../styles/roomstyle.module.css";
 import ViewCurrentTimeTableDay from "./ViewCurrentTimeTableDay";
 
 type ctrlBtnsProps = {
     ctrlMultiTimeTable: number;
     setCtrlMultiTimeTable: React.Dispatch<React.SetStateAction<number>>;
-    theToday: number;
     theThisLastDay: number;
 };
 
 function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
-    const { ctrlMultiTimeTable, setCtrlMultiTimeTable, theToday, theThisLastDay } = props;
+    const { ctrlMultiTimeTable, setCtrlMultiTimeTable, theThisLastDay } = props;
 
     // 各種条件判定に利用するための「今日・本日」の固定値
-    const solidValue_theToday: number = theToday;
+    const [solidValue_theToday, setSolidValue_theToday] = useState(ctrlMultiTimeTable);
 
     // タイムテーブルの表示制御に利用するための「今日・本日」の可変値
     const liquidValue_theToday: number = ctrlMultiTimeTable;
@@ -67,6 +66,20 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
             ctrlNextTimeTable(liquidValue_theToday);
         }
     }
+
+    // ハイドレーションエラーおよびLintエラー対策のための処理
+    useEffect(() => {
+        const timeId = setTimeout(() => {
+            const theToday: number = new Date().getDate();
+            setSolidValue_theToday(theToday);
+        }, 1);
+
+        // シンプルな effect 処理だとLintエラーが表示されてしまうので
+        // 遅延実行およびそのクリーンアップ処理で対処
+        return () => {
+            clearTimeout(timeId);
+        }
+    }, [setSolidValue_theToday]);
 
     return (
         <>
