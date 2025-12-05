@@ -35,7 +35,11 @@ export const useRegiTodoItem = () => {
         if (shallowCopyTodoItems.todoContent.length > 0) {
             createReservation(newTodoList);
             setTodoMemo([...todoMemo, newTodoList]);
-            location.reload(); // 登録直後に当該内容を更新すると 500エラーになるため再読み込みさせて登録完了させておく 
+
+            setTimeout(() => {
+                // 登録直後に当該内容を更新すると 500エラーになるため再読み込みさせて登録完了させておく
+                location.reload();
+            }, 150);
         }
     }
 
