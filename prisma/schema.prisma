@@ -1,16 +1,10 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 datasource db {
-  provider = "sqlite"         // 使用するDBの種類を指定（今回はSQLite）
-  url      = "file:./dev.db"  // プロジェクト内の dev.db をデータベースの参照URLとして設定
+  provider = "sqlite"  // 使用するDBの種類を指定（今回はSQLite）
 }
 
 generator client {
-  provider = "prisma-client-js" // Prismaクライアントを生成するためのライブラリを指定
+  provider = "prisma-client"
+  output   = "../src/generated"
 }
 
 // データベースのテーブル内容とリンクさせるための設定

@@ -1,14 +1,25 @@
-/* クライアントで prisma を通じてデータベースを操作・利用するための機能をインポート */
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@/generated/client'
+import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
-/* グローバルスコープに PrismaClient のインスタンスを保持するための型定義 */
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+const globalForPrisma = globalThis as unknown as {
+    prisma: PrismaClient | undefined
+}
 
-/* PrismaClient のインスタンスが存在しない場合は新規作成 */
-export const prisma = globalForPrisma.prisma || new PrismaClient();
+const createPrismaClient = () => {
+    const adapter = new PrismaBetterSqlite3({
+        url: process.env.DATABASE_URL || 'file:./dev.db'
+    })
 
-/**
- * 開発環境の場合のみ、グローバルオブジェクトに PrismaClient インスタンスを保持
- * これにより開発時のホットリロードで複数のインスタンスが作成されることを防ぐ
-*/
-if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;
+    return new PrismaClient({
+        adapter,
+        log: process.env.NODE_ENV === 'development'
+            ? ['query', 'error', 'warn']
+            : ['error']
+    })
+}
+
+const prisma = globalForPrisma.prisma ?? createPrismaClient()
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
+
+export default prisma
