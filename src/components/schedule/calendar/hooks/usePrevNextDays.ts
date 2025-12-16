@@ -1,10 +1,11 @@
+import { useCallback } from "react";
 import { calendarItemType } from "../ts/calendarItemType";
 import { useGetCalndarItem } from "./useGetCalendarItem";
 
 export const usePrevNextDays = () => {
     const { getCalendarItem } = useGetCalndarItem();
 
-    const prevNextDays: (year: number, month: number, dayDateBox: calendarItemType[]) => calendarItemType[] = (
+    const prevNextDays: (year: number, month: number, dayDateBox: calendarItemType[]) => calendarItemType[] = useCallback((
         year: number,
         month: number,
         dayDateBox: calendarItemType[],
@@ -44,7 +45,7 @@ export const usePrevNextDays = () => {
         const theCalendar: calendarItemType[] = [...targetPrevDays, ...dayDateBox, ...targetNextDays];
 
         return theCalendar
-    }
+    }, [getCalendarItem]);
 
     return { prevNextDays }
 }

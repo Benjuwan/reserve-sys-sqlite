@@ -46,9 +46,7 @@ function Calendar() {
 
     useEffect(() => {
         getMonthDays(ctrlYear, ctrlMonth, setDays);
-        //「初回マウントだけ実行したい」ため以下を記述
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [getMonthDays, ctrlYear, ctrlMonth]);
 
     return (
         <section className={calendarStyle.wrapper}>

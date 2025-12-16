@@ -1,3 +1,4 @@
+import { useCallback } from "react";
 import { calendarItemType } from "../ts/calendarItemType";
 import { useGetCalndarItem } from "./useGetCalendarItem";
 import { usePrevNextDays } from "./usePrevNextDays";
@@ -6,7 +7,7 @@ export const useGetMonthDays = () => {
     const { getCalendarItem } = useGetCalndarItem();
     const { prevNextDays } = usePrevNextDays();
 
-    const getMonthDays: (year: number, month: number, setDays: React.Dispatch<React.SetStateAction<calendarItemType[]>>) => void = (
+    const getMonthDays: (year: number, month: number, setDays: React.Dispatch<React.SetStateAction<calendarItemType[]>>) => void = useCallback((
         year: number,
         month: number,
         setDays: React.Dispatch<React.SetStateAction<calendarItemType[]>>
@@ -22,7 +23,7 @@ export const useGetMonthDays = () => {
 
         const theCalendar: calendarItemType[] = prevNextDays(year, month, dayDateBox);
         setDays(theCalendar);
-    }
+    }, [getCalendarItem, prevNextDays]);
 
     return { getMonthDays }
 }

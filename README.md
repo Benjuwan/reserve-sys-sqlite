@@ -48,18 +48,18 @@
 - @prisma/adapter-better-sqlite3@7.1.0
 - @prisma/adapter-pg@7.1.0
 - @prisma/client@7.1.0
-- @types/node@24.10.1
+- @types/node@25.0.2
 - @types/react-dom@19.2.3
 - @types/react@19.2.7
 - @types/uuid@10.0.0
 - better-sqlite3@12.5.0
-- eslint-config-next@16.0.7
-- eslint@9.39.1
-- jotai@2.15.2
-- next@16.0.7
+- eslint-config-next@16.0.10
+- eslint@9.39.2
+- jotai@2.16.0
+- next@16.0.10
 - prisma@7.1.0
-- react-dom@19.2.1
-- react@19.2.1
+- react-dom@19.2.3
+- react@19.2.3
 - typescript@5.9.3
 - uuid@13.0.0
 
@@ -98,6 +98,13 @@ NEXT_PUBLIC_API_URL=http://localhost:3000/
 
 - `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
 ```bash
+# 1. Prisma migration を実行してテーブルを作成
+npx prisma migrate dev --name init
+
+# 2. または、マイグレーションを実行せずに同期だけさせる
+npx prisma db push
+
+# 3. Prisma Clientを再生成
 npx prisma generate
 ```
 
