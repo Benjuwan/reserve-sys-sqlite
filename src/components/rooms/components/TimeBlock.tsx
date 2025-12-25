@@ -25,12 +25,13 @@ function TimeBlock({ props }: { props: TimeBlockType }) {
 
     // useMemo を使用した動的な予約情報（当日より1週間分の各部屋ごとのタイムテーブル配列）の取得 
     const relevantReservations: todoItemType[] = useMemo(() => {
-        return [...todoMemo].filter(memo =>
-            (memo.todoID === theTimeTableViewDay) &&
-            (typeof memo.rooms !== 'undefined' && memo.rooms === room)
-        );
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [todoMemo, room, ctrlMultiTimeTable]);
+        return [...todoMemo].filter(memo => {
+            const isMatchDate_YearMonthDay: boolean = memo.todoID === theTimeTableViewDay;
+            const isMatchRoomName: boolean = typeof memo.rooms !== 'undefined' && memo.rooms === room;
+
+            return isMatchDate_YearMonthDay && isMatchRoomName;
+        });
+    }, [todoMemo, room, theTimeTableViewDay]);
 
     return (
         <>
