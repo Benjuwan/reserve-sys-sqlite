@@ -53,10 +53,10 @@
 - @types/react@19.2.7
 - @types/uuid@10.0.0
 - better-sqlite3@12.5.0
-- eslint-config-next@16.1.0
+- eslint-config-next@16.1.1
 - eslint@9.39.2
 - jotai@2.16.0
-- next@16.1.0
+- next@16.1.1
 - prisma@7.2.0
 - react-dom@19.2.3
 - react@19.2.3
@@ -65,10 +65,15 @@
 
 ---
 
+<details>
+<summary>【解決済み】、Windows環境でのみ、prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する件</summary>
+
+- **Next.js 16.1.1 で解消**
+
 > [!IMPORTANT]
 > - **2025/12/22： prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する**
 > - **問題の詳細**: Next.js 16のTurbopackがPrisma 7の生成コードに対してシンボリックリンクを作成する際、Windows環境で権限エラー(os error 1314)が発生<br>
-> 応急処置としてpackage.jsonのビルドコマンドをwebpackを用いる仕様に修正
+> 応急処置として`package.json`のビルドコマンドを`webpack`を用いる仕様に修正
 > ```diff
 > "scripts": {
 > - "dev": "next dev",
@@ -79,7 +84,9 @@
 >   "lint": "eslint ."
 > },
 > ```
-> しかしこれは**あくまで暫定的な応急処置なので将来のアップデートを待ちながら、次回以降のアップデート・グレードの度に--webpackを外したコマンドで実施**して検証していくこと。
+> しかしこれは**あくまで暫定的な応急処置なので将来のアップデートを待ちながら、次回以降のアップデート・グレードの度に`--webpack`を外したコマンドで実施**して検証していくこと。
+
+></details>
 
 ---
 
