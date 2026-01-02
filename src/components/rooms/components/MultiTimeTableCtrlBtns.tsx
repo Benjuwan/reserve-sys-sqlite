@@ -87,7 +87,10 @@ function MultiTimeTableCtrlBtns({ props }: { props: ctrlBtnsProps }) {
                 <button onClick={handleCtrlMultiTimeTable} data-btn="prev">&lt; 前日</button>
                 <button onClick={handleCtrlMultiTimeTable} data-btn="next">翌日 &gt;</button>
             </div>
-            <ViewCurrentTimeTableDay ctrlMultiTimeTable={liquidValue_theToday} />
+            <ViewCurrentTimeTableDay props={{
+                ctrlMultiTimeTable: liquidValue_theToday,
+                isLastWeek: isLastWeek
+            }} />
         </>
     );
 }
