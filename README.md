@@ -48,11 +48,11 @@
 - @prisma/adapter-better-sqlite3@7.2.0
 - @prisma/adapter-pg@7.2.0
 - @prisma/client@7.2.0
-- @types/node@25.0.3
+- @types/node@25.0.5
 - @types/react-dom@19.2.3
-- @types/react@19.2.7
+- @types/react@19.2.8
 - @types/uuid@10.0.0
-- better-sqlite3@12.5.0
+- better-sqlite3@12.6.0
 - eslint-config-next@16.1.1
 - eslint@9.39.2
 - jotai@2.16.1
