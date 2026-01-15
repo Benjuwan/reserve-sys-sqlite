@@ -48,15 +48,15 @@
 - @prisma/adapter-better-sqlite3@7.2.0
 - @prisma/adapter-pg@7.2.0
 - @prisma/client@7.2.0
-- @types/node@25.0.5
+- @types/node@25.0.8
 - @types/react-dom@19.2.3
 - @types/react@19.2.8
 - @types/uuid@10.0.0
 - better-sqlite3@12.6.0
-- eslint-config-next@16.1.1
+- eslint-config-next@16.1.2
 - eslint@9.39.2
-- jotai@2.16.1
-- next@16.1.1
+- jotai@2.16.2
+- next@16.1.2
 - prisma@7.2.0
 - react-dom@19.2.3
 - react@19.2.3
@@ -64,6 +64,28 @@
 - uuid@13.0.0
 
 ---
+
+> [!NOTE]
+> **2026/01/15 Prisma 7.1.0 における Hono の脆弱性警告について**
+>
+> 現在、`npm audit` にて `hono` に関する脆弱性（High）が報告されますが、これは Prisma 7.1.0 が内部（主に Prisma Studio 等の開発ツール）で依存している Hono のバージョンが古いために発生しています。
+>
+> - **原因:** Prisma の内部パッケージ `@prisma/dev` が、脆弱性修正前の `hono@4.11.3` 以下を要求しているため。
+> - **影響範囲:** 主にローカル開発環境（Prisma Studio 等）に限定され、アプリケーション本番環境の動作やセキュリティへの直接的な影響は低いと考えられます。
+> - **注意:** `npm audit fix --force` を実行すると、Prisma が **v7 から v6 へ強制的にダウングレード**され、破壊的変更が発生するため実行しないでください。
+>
+> **一時的な回避策:**
+> Prisma 側のアップデートを待つ間、`package.json` に以下の `overrides` を追加することで警告を解消。<br>
+> **今後、Prisma のマイナーアップデート（v7.2.0 など）がリリースされたタイミングで、一度`overrides`を外して`npm audit`を実行し、公式に修正されたか確認してみること**
+```diff
+  ...
+  "typescript": "^5"
+- }
++ },
++ "overrides": {
++   "hono": "^4.11.4"
++ }
+```
 
 <details>
 <summary>【解決済み】、Windows環境でのみ、prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する件</summary>
