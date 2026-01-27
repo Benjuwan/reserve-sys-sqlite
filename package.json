@@ -30,5 +30,8 @@
     "eslint-config-next": "^16.0.1",
     "prisma": "^7.1.0",
     "typescript": "^5"
+  },
+  "overrides": {
+    "lodash": "^4.17.23"
   }
 }
