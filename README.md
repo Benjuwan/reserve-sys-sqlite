@@ -45,25 +45,28 @@
 
 ## 技術構成
 - @eslint/eslintrc@3.3.3
-- @prisma/adapter-better-sqlite3@7.2.0
-- @prisma/adapter-pg@7.2.0
-- @prisma/client@7.2.0
-- @types/node@25.0.8
+- @prisma/adapter-better-sqlite3@7.3.0
+- @prisma/adapter-pg@7.3.0
+- @prisma/client@7.3.0
+- @types/node@25.0.10
 - @types/react-dom@19.2.3
-- @types/react@19.2.8
+- @types/react@19.2.9
 - @types/uuid@10.0.0
-- better-sqlite3@12.6.0
-- eslint-config-next@16.1.2
+- better-sqlite3@12.6.2
+- eslint-config-next@16.1.5
 - eslint@9.39.2
 - jotai@2.16.2
-- next@16.1.2
-- prisma@7.2.0
-- react-dom@19.2.3
-- react@19.2.3
+- next@16.1.5
+- prisma@7.3.0
+- react-dom@19.2.4
+- react@19.2.4
 - typescript@5.9.3
 - uuid@13.0.0
 
 ---
+
+<details>
+<summary>【解決済み】Prisma 7.1.0 における Hono の脆弱性警告について</summary>
 
 > [!NOTE]
 > **2026/01/15 Prisma 7.1.0 における Hono の脆弱性警告について**
@@ -86,6 +89,8 @@
 +   "hono": "^4.11.4"
 + }
 ```
+
+</details>
 
 <details>
 <summary>【解決済み】、Windows環境でのみ、prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する件</summary>
