@@ -1,4 +1,4 @@
-import { ChangeEvent, memo, useState } from "react";
+import { SyntheticEvent, memo, useState } from "react";
 import todoStyle from "../styles/todoStyle.module.css";
 import { todoItemType } from "../ts/todoItemType";
 import { useHandleInputValueSanitize } from "@/hooks/useHandleInputValueSanitize";
@@ -16,7 +16,7 @@ function TodoItemsEditable({ props }: { props: TodoItemsEditableTypes }) {
     const { adjustViewerTimeSpace } = useCreateTimeSpace();
 
     const [checkPassword, setCheckPassword] = useState<string>('');
-    const handleCheckPassword: (e: ChangeEvent<HTMLInputElement>) => void = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleCheckPassword: (e: SyntheticEvent<HTMLInputElement>) => void = (e: SyntheticEvent<HTMLInputElement>) => {
         // サニタイズした値をセッター関数（ setCheckPassword ）にセット
         const checkPasswordStr: string = handleInputValueSanitize(e.currentTarget.value);
         setCheckPassword(checkPasswordStr);

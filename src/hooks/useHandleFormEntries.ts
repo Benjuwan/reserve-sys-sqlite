@@ -1,8 +1,8 @@
-import { ChangeEvent } from "react";
+import { SyntheticEvent } from "react";
 import { useHandleInputValueSanitize } from "./useHandleInputValueSanitize";
 
 type handleFormEntriesType = <T>(
-    targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+    targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
     targetFormEntries: T,
     setEntries: React.Dispatch<React.SetStateAction<T>>
 ) => void
@@ -14,7 +14,7 @@ export const useHandleFormEntries = () => {
 
     /* <T>：ジェネリクスで任意の型を指定 */
     const handleFormEntries: handleFormEntriesType = <T>(
-        targetElm: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
+        targetElm: SyntheticEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>,
         targetFormEntries: T,
         setEntries: React.Dispatch<React.SetStateAction<T>>
     ) => {
