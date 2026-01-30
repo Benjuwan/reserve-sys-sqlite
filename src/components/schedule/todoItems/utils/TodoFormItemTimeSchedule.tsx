@@ -1,5 +1,5 @@
 import todoStyle from "../styles/todoStyle.module.css";
-import { ChangeEvent, Dispatch, memo, RefObject, SetStateAction } from "react";
+import { SyntheticEvent, Dispatch, memo, RefObject, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
 import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
@@ -12,7 +12,7 @@ function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxtRef }:
     const { checkTimeValidation } = useCheckTimeValidation();
     const { handleFormEntries } = useHandleFormEntries();
 
-    const handleTimeSchedule: (e: ChangeEvent<HTMLInputElement>) => void = (e: ChangeEvent<HTMLInputElement>) => {
+    const handleTimeSchedule: (e: SyntheticEvent<HTMLInputElement>) => void = (e: SyntheticEvent<HTMLInputElement>) => {
         checkTimeValidation(todoItems, validationTxtRef);
         handleFormEntries<todoItemType>(e, todoItems, setTodoItems);
     }
@@ -24,11 +24,11 @@ function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxtRef }:
                 // 以下記述でないと 12:30 で表示されてしまい、登録機能も動かなくなってしまう（※ドロップダウンリストが表示されないのはブラウザ仕様）
                 todoItems.startTime?.length === 0 ?
                     '00:00' : todoItems.startTime
-            } onChange={(e: ChangeEvent<HTMLInputElement>) => { handleTimeSchedule(e) }} /></label>
+            } onChange={(e: SyntheticEvent<HTMLInputElement>) => { handleTimeSchedule(e) }} /></label>
             <label className={todoStyle.timeLabel}><span>終了時刻</span><input id="finishTime" type="time" value={
                 todoItems.finishTime?.length === 0 ?
                     '00:00' : todoItems.finishTime
-            } onChange={(e: ChangeEvent<HTMLInputElement>) => { handleTimeSchedule(e) }} /></label>
+            } onChange={(e: SyntheticEvent<HTMLInputElement>) => { handleTimeSchedule(e) }} /></label>
         </div>
     )
 }

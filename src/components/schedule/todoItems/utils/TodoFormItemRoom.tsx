@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, Ref, memo, SetStateAction, RefObject } from "react";
+import { SyntheticEvent, Dispatch, Ref, memo, SetStateAction, RefObject } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { roomsType } from "@/components/rooms/ts/roomsType";
 import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
@@ -21,7 +21,7 @@ function TodoFormItemRoom({ rooms, todoItems, setTodoItems, roomRef, validationT
             {rooms.length > 0 &&
                 <>
                     <label htmlFor="rooms"><span>場所</span></label>
-                    <select name="rooms" id="rooms" ref={roomRef} onChange={(e: ChangeEvent<HTMLSelectElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)}>
+                    <select name="rooms" id="rooms" ref={roomRef} onChange={(e: SyntheticEvent<HTMLSelectElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)}>
                         {rooms.map((room, i) => (
                             <option key={i} value={room.room}>{room.room}</option>
                         ))}

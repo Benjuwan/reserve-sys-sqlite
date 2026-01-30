@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, memo, SetStateAction } from "react";
+import { SyntheticEvent, Dispatch, memo, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
 
@@ -9,7 +9,7 @@ function TodoFormItemContent({ todoItems, setTodoItems }: {
     const { handleFormEntries } = useHandleFormEntries();
 
     return (
-        <label><span>予定内容</span><input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: ChangeEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
+        <label><span>予定内容</span><input type="text" value={todoItems.todoContent} id="todoContent" onInput={(e: SyntheticEvent<HTMLInputElement>) => handleFormEntries<todoItemType>(e, todoItems, setTodoItems)} />
         </label>
     )
 }
