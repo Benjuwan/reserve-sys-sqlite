@@ -7,30 +7,35 @@ export const useRemovePastSchedule = () => {
     const [, setTodoMemo] = useAtom(todoMemoAtom);
     const { deleteReservation } = useDeleteTodoItem();
 
-    const currentDate: Date = new Date();
-
     const removePastSchedule: (fetchTodoMemo: todoItemType[]) => void = (fetchTodoMemo: todoItemType[]) => {
         if (fetchTodoMemo.length > 0) {
-            // Day（曜日） Month（月） Date（日付） year（年） 09:00:00 GMT+0900 (GMT+09:00)
-            currentDate.setHours(9, 0, 0, 0);
+            // 現在の UTC 時刻を取得し、日本時間（UTC+9時間）に変換
+            const now = new Date();
+            const jstTime = new Date(now.getTime() + (9 * 60 * 60 * 1000));
+
+            // 日本時間での今日の日付（YYYY-MM-DD形式）
+            const year = jstTime.getUTCFullYear();
+            const month = String(jstTime.getUTCMonth() + 1).padStart(2, '0');
+            const date = String(jstTime.getUTCDate()).padStart(2, '0');
+            const todayJST = `${year}-${month}-${date}`;
 
             const exceptPastTodoMemos: todoItemType[] = [...fetchTodoMemo].filter(memo => {
-                /* currentDate と「同じ記述及び文字列型にする」ための整形処理 */
-                const adjustMemoTimeData: string = memo.todoID.split('/').map((d, i) => {
+                // memo.todoID を YYYY-MM-DD 形式に変換
+                const memoDateStr = memo.todoID.split('/').map((d, i) => {
                     if (i !== 0) {
-                        // 月日のみ「-MM, -DD」の形に整形（※出力結果は YYYY-MM-DD ）
-                        return `-${d.toString().padStart(2, '0')}`;
+                        return d.toString().padStart(2, '0');
                     } else {
                         return d;
                     }
-                }).join('');
+                }).join('-');
 
-                const compareTarget_memoDate: Date = new Date(adjustMemoTimeData);
-
-                if (compareTarget_memoDate >= currentDate) {
+                // 文字列比較で判定（YYYY-MM-DD形式なら辞書順で比較可能）
+                if (memoDateStr >= todayJST) {
                     return true;
                 } else {
                     /* 過去分はDBから削除 */
+                    console.warn("▼ 過去判定による削除対象スケジュール");
+                    console.warn(memo);
                     deleteReservation(memo.id);
                     return false; // 明示的に false を返す
                 }
