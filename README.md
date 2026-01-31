@@ -1,15 +1,21 @@
 ## Reserve-Sys-SQLite
-[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリの派生ver（`prisma`×`SQLite`）<br><br>
-任意の部屋数を用意するとともに、各部屋ごとの予約を視覚的に把握及び管理・編集できる「会議室予約システムUI」です。<br>`prisma`×`SQLite`で予約内容をビルトインのデータベースに保存・管理する仕様にしています。<br>
+[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリの派生ver（`prisma`×`SQLite`）    
+任意の部屋数を用意するとともに、各部屋ごとの予約を視覚的に把握及び管理・編集できる「会議室予約システムUI」です。  
+`prisma`×`SQLite`で予約内容をビルトインのデータベースに保存・管理する仕様にしています。  
 
-- `src/types/rooms-atom.ts`<br>部屋数と予約可能時間の設定ファイル
+- `src/types/rooms-atom.ts`  
+部屋数と予約可能時間の設定ファイル
 
 ### 仕様紹介
-以下の仕様に関しては[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリと同様です。<br><br>
+以下の仕様に関しては[reserve-sys](https://github.com/Benjuwan/reserve-sys)リポジトリと同様です。    
 
-- 予約内容の重複禁止<br>他の方が先に予約している場合は受け付けません。
-- 予約時間外は受付不可<br>「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。<br>※：`src/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
-- 過去の予約内容は随時削除<br>当日以前の過去予約内容は削除（※）されます。<br>※：`src/components/schedule/calendar/hooks/useRemovePastSchedule.ts`での`deleteReservation`処理にて実行
+- 予約内容の重複禁止  
+他の方が先に予約している場合は受け付けません。
+- 予約時間外は受付不可  
+「`timeBlockBegin`時～`timeBlockEnd`時（※）」の時間帯で予約できます。各部屋ごとのタイムテーブルには当日分の予約内容が反映されます。  
+※：`src/types/rooms-atom.ts`の`timeBlockBegin`と`timeBlockEnd`から値を取得
+- 過去の予約内容は随時削除  当日以前の過去予約内容は削除（※）されます。  
+※：`src/components/schedule/calendar/hooks/useRemovePastSchedule.ts`での`deleteReservation`処理にて実行
 
 #### 予約方法
 <img width="948" alt="スケジュール欄の日付にあるアイコンをクリック" src="https://github.com/user-attachments/assets/38353bee-9797-4b3d-a228-70ec86d01b84" />
@@ -78,7 +84,7 @@
 > - **注意:** `npm audit fix --force` を実行すると、Prisma が **v7 から v6 へ強制的にダウングレード**され、破壊的変更が発生するため実行しないでください。
 >
 > **一時的な回避策:**
-> Prisma 側のアップデートを待つ間、`package.json` に以下の `overrides` を追加することで警告を解消。<br>
+> Prisma 側のアップデートを待つ間、`package.json` に以下の `overrides` を追加することで警告を解消。  
 > **今後、Prisma のマイナーアップデート（v7.2.0 など）がリリースされたタイミングで、一度`overrides`を外して`npm audit`を実行し、公式に修正されたか確認してみること**
 ```diff
   ...
@@ -99,7 +105,7 @@
 
 > [!IMPORTANT]
 > - **2025/12/22： prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する**
-> - **問題の詳細**: Next.js 16のTurbopackがPrisma 7の生成コードに対してシンボリックリンクを作成する際、Windows環境で権限エラー(os error 1314)が発生<br>
+> - **問題の詳細**: Next.js 16のTurbopackがPrisma 7の生成コードに対してシンボリックリンクを作成する際、Windows環境で権限エラー(os error 1314)が発生  
 > 応急処置として`package.json`のビルドコマンドを`webpack`を用いる仕様に修正
 > ```diff
 > "scripts": {
@@ -118,8 +124,8 @@
 ---
 
 > [!NOTE]
-> - Prismaクライアントを更新<br>
-> **各種ライブラリのアップデート・アップグレードを行った後にprisma起因で立ち上がらなかったり、ビルドできなかったり**する場合<br>
+> - Prismaクライアントを更新  
+> **各種ライブラリのアップデート・アップグレードを行った後にprisma起因で立ち上がらなかったり、ビルドできなかったり**する場合  
 > 以下のコマンドでPrismaクライアントを更新して対応する
 ```bash
 npx prisma generate
@@ -130,7 +136,7 @@ npx prisma generate
 > [!NOTE]
 > - `npm audit`で定期的に脆弱性のチェックを行う
 > - `npm update`で定期的に（互換性を維持した）更新を行う
->   - `^`（キャレット：「指定されたバージョンからメジャーバージョンを変更しない範囲で最新のバージョンまでを許容」する機能を示す記号）が付いていても油断せず定期的にチェックする<br>例：`"next": "^14.2.12"`の場合、14.2.12以上 15.0.0未満のバージョンが許容される
+>   - `^`（キャレット：「指定されたバージョンからメジャーバージョンを変更しない範囲で最新のバージョンまでを許容」する機能を示す記号）が付いていても油断せず定期的にチェックする  例：`"next": "^14.2.12"`の場合、14.2.12以上 15.0.0未満のバージョンが許容される
 > - `npm outdated`で表示される`Current`と`Wanted`の内容が等しいのが望ましい
 > - 特定ライブラリを最新にするには`npm install ライブラリ名@latest`コマンドを実行する
 
@@ -161,14 +167,14 @@ npx prisma generate
 ```
 
 ## 備考
-- `prisma studio`<br>
+- `prisma studio`  
 `GUI`でテーブル操作できる機能
 ```bash
 # npx prisma studio で起動
 npx prisma studio
 ```
 
-- `prisma`のアップデートコマンド<br>
+- `prisma`のアップデートコマンド  
 ```bash
 npm i --save-dev prisma@latest
 npm i @prisma/client@latest 
@@ -180,7 +186,7 @@ npm i @prisma/client@latest
 
 ## データベースの仕様（テーブル）更新
 登録内容を変更したい場合、以下フローを実行する必要がある。
-- `prisma/schema.prisma`<br>
+- `prisma/schema.prisma`  
 `model`オブジェクトの内容を編集（登録内容を追加・削除）
 - `prisma/schema.prisma`の`model`オブジェクト編集後、以下のコマンドをターミナルに打つ
 ```bash
@@ -192,18 +198,18 @@ npx prisma generate
 ```
 
 > [!NOTE]
-> - `prisma/dev.db-journal`<br>
-> `dev.db-journal`という設定中のデータベース（今回は`SQLite`）の内部処理用ファイルが自動的に生成・削除されるが無視して構わない。<br>
+> - `prisma/dev.db-journal`  
+> `dev.db-journal`という設定中のデータベース（今回は`SQLite`）の内部処理用ファイルが自動的に生成・削除されるが無視して構わない。  
 > `dev.db-journal`は`SQLite`が自動的に管理する`SQLite`のトランザクションログファイルで、データベース操作の一時的な記録を保持している。
 
 ### その他の更新・修正が必要なファイル
 ※以下の更新・修正は本リポジトリにおいてのみ適用されるもので一般的なものではありません。
-- `src/app/components/schedule/todoItems/ts/todoItemType.ts`<br>
+- `src/app/components/schedule/todoItems/ts/todoItemType.ts`  
 登録内容の型情報を編集
 - `src/app/components/schedule/todoItems/TodoForm.tsx`
     - `todoItems`ステートの初期値である`initTodoItems`オブジェクトを編集（オブジェクトに当該登録内容であるプロパティ・キーを追加・削除）
     - （変更した）当該登録内容に関する入力フォームを（`src/app/components/schedule/todoItems/utils`配下に）用意または調整
-- `src/app/api/reservations/`配下の`Route Handlers`の登録内容を編集<br>
+- `src/app/api/reservations/`配下の`Route Handlers`の登録内容を編集  
 （※[前述の`prisma`データベース更新フロー](#データベースの仕様テーブル更新)が済んでいないと進まないので注意）
-    - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）<br>
+    - `POST`, `PUT`に関する`data`オブジェクト内を編集（例：プロパティ・キーの追加など）  
     ※`data`オブジェクト編集後に型エラーが表示される場合は一旦`VSCode`を閉じてみる

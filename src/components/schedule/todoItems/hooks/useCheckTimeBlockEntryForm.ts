@@ -49,8 +49,8 @@ export const useCheckTimeBlockEntryForm = () => {
                 const theStartTime = typeof todoItems.startTime !== 'undefined' ? parseInt(todoItems.startTime.replace(':', '')) : theTime;
                 const theFinishTime = typeof todoItems.finishTime !== 'undefined' ? parseInt(todoItems.finishTime.replace(':', '')) : theTime;
 
-                // 00分スタートと、それ以外の場合で差計算用の数値を調整
-                const forCalcBufferingStartTime_getMin = memoStartTime.toString().slice(2, 4);
+                // 時間を4桁文字列（例: 9:45 -> "0945"）に揃えてから「分」の部分（後ろ2桁）を取得
+                const forCalcBufferingStartTime_getMin = memoStartTime.toString().padStart(4, '0').slice(2, 4);
 
                 // 既存予約の開始時刻の分の一桁目
                 const forCalcBufferingStartTime_getMin_1st: number = parseInt(forCalcBufferingStartTime_getMin.at(-1) ?? '0');

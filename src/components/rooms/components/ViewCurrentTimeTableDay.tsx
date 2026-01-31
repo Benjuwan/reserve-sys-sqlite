@@ -13,7 +13,7 @@ function ViewCurrentTimeTableDay({ props }: { props: timeTableDayProps }) {
 
     const [theThisMonth, setThisMonth] = useState<number | undefined>(undefined);
 
-    const isNextMonth: boolean = useMemo(() => isLastWeek && ctrlMultiTimeTable - 7 < 0, [isLastWeek, ctrlMultiTimeTable]);
+    const isNextMonth: boolean = useMemo(() => isLastWeek && ctrlMultiTimeTable - 7 <= 0, [isLastWeek, ctrlMultiTimeTable]);
 
     const isDec: boolean = useMemo(() => theThisMonth === 12, [theThisMonth]);
 
