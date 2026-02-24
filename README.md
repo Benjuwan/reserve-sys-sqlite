@@ -50,86 +50,24 @@
 ---
 
 ## 技術構成
-- @eslint/eslintrc@3.3.3
-- @prisma/adapter-better-sqlite3@7.3.0
-- @prisma/adapter-pg@7.3.0
-- @prisma/client@7.3.0
-- @types/node@25.1.0
+- @eslint/eslintrc@3.3.4
+- @prisma/adapter-better-sqlite3@7.4.1
+- @prisma/adapter-pg@7.4.1
+- @prisma/client@7.4.1
+- @types/node@25.3.0
 - @types/react-dom@19.2.3
-- @types/react@19.2.10
+- @types/react@19.2.14
 - @types/uuid@10.0.0
 - better-sqlite3@12.6.2
 - eslint-config-next@16.1.6
-- eslint@9.39.2
-- jotai@2.17.0
+- eslint@9.39.3
+- jotai@2.18.0
 - next@16.1.6
-- prisma@7.3.0
+- prisma@7.4.1
 - react-dom@19.2.4
 - react@19.2.4
 - typescript@5.9.3
 - uuid@13.0.0
-
----
-
-<details>
-<summary>【解決済み】Prisma 7.1.0 における Hono の脆弱性警告について</summary>
-
-> [!NOTE]
-> **2026/01/15 Prisma 7.1.0 における Hono の脆弱性警告について**
->
-> 現在、`npm audit` にて `hono` に関する脆弱性（High）が報告されますが、これは Prisma 7.1.0 が内部（主に Prisma Studio 等の開発ツール）で依存している Hono のバージョンが古いために発生しています。
->
-> - **原因:** Prisma の内部パッケージ `@prisma/dev` が、脆弱性修正前の `hono@4.11.3` 以下を要求しているため。
-> - **影響範囲:** 主にローカル開発環境（Prisma Studio 等）に限定され、アプリケーション本番環境の動作やセキュリティへの直接的な影響は低いと考えられます。
-> - **注意:** `npm audit fix --force` を実行すると、Prisma が **v7 から v6 へ強制的にダウングレード**され、破壊的変更が発生するため実行しないでください。
->
-> **一時的な回避策:**
-> Prisma 側のアップデートを待つ間、`package.json` に以下の `overrides` を追加することで警告を解消。  
-> **今後、Prisma のマイナーアップデート（v7.2.0 など）がリリースされたタイミングで、一度`overrides`を外して`npm audit`を実行し、公式に修正されたか確認してみること**
-```diff
-  ...
-  "typescript": "^5"
-- }
-+ },
-+ "overrides": {
-+   "hono": "^4.11.7"
-+ }
-```
-
-</details>
-
-<details>
-<summary>【解決済み】、Windows環境でのみ、prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する件</summary>
-
-- **Next.js 16.1.1 で解消**
-
-> [!IMPORTANT]
-> - **2025/12/22： prisma@7.2.0 と next@16.1.0 では互換性がなくビルドエラーが発生する**
-> - **問題の詳細**: Next.js 16のTurbopackがPrisma 7の生成コードに対してシンボリックリンクを作成する際、Windows環境で権限エラー(os error 1314)が発生  
-> 応急処置として`package.json`のビルドコマンドを`webpack`を用いる仕様に修正
-> ```diff
-> "scripts": {
-> - "dev": "next dev",
-> + "dev": "next dev --webpack",
-> - "build": "prisma generate && next build",
-> + "build": "prisma generate && next build --webpack",
->   "start": "next start",
->   "lint": "eslint ."
-> },
-> ```
-> しかしこれは**あくまで暫定的な応急処置なので将来のアップデートを待ちながら、次回以降のアップデート・グレードの度に`--webpack`を外したコマンドで実施**して検証していくこと。
-
-></details>
-
----
-
-> [!NOTE]
-> - Prismaクライアントを更新  
-> **各種ライブラリのアップデート・アップグレードを行った後にprisma起因で立ち上がらなかったり、ビルドできなかったり**する場合  
-> 以下のコマンドでPrismaクライアントを更新して対応する
-```bash
-npx prisma generate
-```
 
 ---
 
