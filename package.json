@@ -30,9 +30,5 @@
     "eslint-config-next": "^16.0.1",
     "prisma": "^7.1.0",
     "typescript": "^5"
-  },
-  "overrides": {
-    "hono": "^4.11.7",
-    "lodash": "^4.17.23"
   }
 }
