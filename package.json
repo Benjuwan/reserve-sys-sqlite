@@ -32,7 +32,11 @@
     "typescript": "^5"
   },
   "overrides": {
-    "hono": "^4.12.4",
+    "@prisma/dev": {
+      "@hono/node-server": "^1.19.10",
+      "hono": "^4.12.12"
+    },
+    "hono": "^4.12.12",
     "@hono/node-server": "^1.19.10",
     "lodash": "^4.17.23",
     "valibot": "^1.2.0"
