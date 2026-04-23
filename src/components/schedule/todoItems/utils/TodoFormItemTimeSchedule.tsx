@@ -1,20 +1,24 @@
 import todoStyle from "../styles/todoStyle.module.css";
-import { SyntheticEvent, Dispatch, memo, RefObject, SetStateAction } from "react";
+import { SyntheticEvent, Dispatch, memo, SetStateAction } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { useCheckTimeValidation } from "../hooks/useCheckTimeValidation";
-import { useHandleFormEntries } from "@/hooks/useHandleFormEntries";
 
-function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxtRef }: {
+function TodoFormItemTimeSchedule({ todoItems, setTodoItems, validationTxt, setValidationTxt }: {
     todoItems: todoItemType,
     setTodoItems: Dispatch<SetStateAction<todoItemType>>,
-    validationTxtRef?: RefObject<string>
+    validationTxt: string,
+    setValidationTxt: Dispatch<SetStateAction<string>>
 }) {
     const { checkTimeValidation } = useCheckTimeValidation();
-    const { handleFormEntries } = useHandleFormEntries();
 
     const handleTimeSchedule: (e: SyntheticEvent<HTMLInputElement>) => void = (e: SyntheticEvent<HTMLInputElement>) => {
-        checkTimeValidation(todoItems, validationTxtRef);
-        handleFormEntries<todoItemType>(e, todoItems, setTodoItems);
+        const nextTodoItems: todoItemType = {
+            ...todoItems,
+            [e.currentTarget.id]: e.currentTarget.value
+        }
+
+        setTodoItems(nextTodoItems);
+        checkTimeValidation(nextTodoItems, setValidationTxt, validationTxt);
     }
 
     return (

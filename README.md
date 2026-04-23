@@ -51,23 +51,23 @@
 
 ## 技術構成
 - @eslint/eslintrc@3.3.5
-- @prisma/adapter-better-sqlite3@7.7.0
-- @prisma/adapter-pg@7.7.0
-- @prisma/client@7.7.0
-- @types/node@25.5.2
+- @prisma/adapter-better-sqlite3@7.8.0
+- @prisma/adapter-pg@7.8.0
+- @prisma/client@7.8.0
+- @types/node@25.6.0
 - @types/react-dom@19.2.3
 - @types/react@19.2.14
 - @types/uuid@10.0.0
-- better-sqlite3@12.8.0
-- eslint-config-next@16.2.3
+- better-sqlite3@12.9.0
+- eslint-config-next@16.2.4
 - eslint@9.39.4
 - jotai@2.19.1
-- next@16.2.3
-- prisma@7.7.0
+- next@16.2.4
+- prisma@7.8.0
 - react-dom@19.2.5
 - react@19.2.5
 - typescript@5.9.3
-- uuid@13.0.0
+- uuid@14.0.0
 
 ---
 
