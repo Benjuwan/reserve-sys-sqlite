@@ -1,15 +1,15 @@
 import todoStyle from "../styles/todoStyle.module.css";
-import { memo, RefObject, SyntheticEvent, useMemo } from "react";
+import { memo, SyntheticEvent, useMemo } from "react";
 import { todoItemType } from "../ts/todoItemType";
 import { useCloseModalWindow } from "../hooks/useCloseModalWindow";
 import { useRegiTodoItem } from "../hooks/useRegiTodoItem";
 import { useUpdateTodoItem } from "../hooks/useUpdateTodoItem";
 import { useHandleFormItems } from "../hooks/useHandleFormItems";
 
-function TodoFormItemRegiBtn({ todoItems, resetStates, validationTxtRef }: {
+function TodoFormItemRegiBtn({ todoItems, resetStates, validationTxt }: {
     todoItems: todoItemType,
     resetStates: () => void,
-    validationTxtRef?: RefObject<string>
+    validationTxt: string
 }) {
     const { closeModalWindow } = useCloseModalWindow();
     const { regiTodoItem } = useRegiTodoItem();
@@ -19,16 +19,14 @@ function TodoFormItemRegiBtn({ todoItems, resetStates, validationTxtRef }: {
     const isBtnDisabled: boolean = useMemo(() => {
         const isCheckPw: boolean = todoItems.pw.length === 0;
         const isCheckContent: boolean = todoItems.todoContent.length === 0;
-        const isValidationTxt: boolean = typeof validationTxtRef !== 'undefined' && validationTxtRef.current.length > 0;
+        const isValidationTxt: boolean = validationTxt.length > 0;
         const inCorrectTimeSchedule: boolean = (typeof todoItems.startTime !== 'undefined' && typeof todoItems.finishTime !== 'undefined') ?
             parseInt(todoItems.startTime.replace(':', '')) > parseInt(todoItems.finishTime.replace(':', ''))
             : false;
         const isSetTimeSchedule: boolean = (typeof todoItems.startTime !== 'undefined' && todoItems.startTime.length === 0) || (typeof todoItems.finishTime !== 'undefined' && todoItems.finishTime.length === 0);
 
         return isCheckPw || isCheckContent || isValidationTxt || inCorrectTimeSchedule || isSetTimeSchedule;
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [todoItems]);
+    }, [todoItems, validationTxt]);
 
     // 編集後に edit:true のままだと誰でも編集できてしまうので false に上書き（＝再編集を行うには再度パスワード入力が必要となる）
     const adjustEditState_updateTodoItem: (todoItems: todoItemType) => void = (todoItems: todoItemType) => {
@@ -55,8 +53,8 @@ function TodoFormItemRegiBtn({ todoItems, resetStates, validationTxtRef }: {
                 resetStates();
             }}>
             {!todoItems.edit ? '登録' : '再登録'}
-            {(typeof validationTxtRef !== 'undefined' && validationTxtRef.current.length > 0) &&
-                <span>{validationTxtRef.current}</span>
+            {validationTxt.length > 0 &&
+                <span>{validationTxt}</span>
             }
         </button>
     )
