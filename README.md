@@ -54,19 +54,19 @@
 - @prisma/adapter-better-sqlite3@7.8.0
 - @prisma/adapter-pg@7.8.0
 - @prisma/client@7.8.0
-- @types/node@25.8.0
+- @types/node@25.9.3
 - @types/react-dom@19.2.3
-- @types/react@19.2.14
+- @types/react@19.2.17
 - @types/uuid@10.0.0
-- better-sqlite3@12.10.0
-- eslint-config-next@16.2.6
+- better-sqlite3@12.11.1
+- eslint-config-next@16.2.9
 - eslint@9.39.4
-- jotai@2.20.0
-- next@16.2.6
+- jotai@2.20.1
+- next@16.2.9
 - prisma@7.8.0
-- react-dom@19.2.6
-- react@19.2.6
-- typescript@5.9.3
+- react-dom@19.2.7
+- react@19.2.7
+- typescript@6.0.3
 - uuid@14.0.0
 
 ---
