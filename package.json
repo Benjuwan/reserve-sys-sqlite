@@ -22,7 +22,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@prisma/client": "^7.1.0",
-    "@types/node": "^25.0.2",
+    "@types/node": "^26.1.2",
     "@types/react": "^19.2.6",
     "@types/react-dom": "^19.2.3",
     "@types/uuid": "^10.0.0",
@@ -32,13 +32,6 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "@prisma/dev": {
-      "@hono/node-server": "^1.19.10",
-      "hono": "^4.12.4"
-    },
-    "hono": "^4.12.4",
-    "@hono/node-server": "^1.19.10",
-    "lodash": "^4.17.23",
-    "valibot": "^1.2.0"
+    "postcss": "^8.5.18"
   }
 }
