@@ -11,8 +11,6 @@
   },
   "dependencies": {
     "@prisma/adapter-better-sqlite3": "^7.1.0",
-    "@prisma/adapter-pg": "^7.1.0",
-    "better-sqlite3": "^12.5.0",
     "jotai": "^2.10.0",
     "next": "^16.0.1",
     "react": "^19.2.1",
@@ -32,6 +30,9 @@
     "typescript": "^6.0.3"
   },
   "overrides": {
-    "postcss": "^8.5.18"
+    "postcss": "^8.5.18",
+    "@prisma/config": {
+      "deepmerge-ts": "^8.0.0"
+    }
   }
 }
