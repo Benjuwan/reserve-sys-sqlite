@@ -53,20 +53,20 @@
 ---
 
 ## 技術構成
-- @eslint/eslintrc@3.3.6
-- @prisma/adapter-better-sqlite3@7.9.1
-- @prisma/client@7.9.1
-- @types/node@26.2.0
-- @types/react-dom@19.2.4
-- @types/react@19.2.18
+- @eslint/eslintrc@3.3.7
+- @prisma/adapter-better-sqlite3@7.10.0
+- @prisma/client@7.10.0
+- @types/node@26.6.4
+- @types/react-dom@19.3.0
+- @types/react@19.3.0
 - @types/uuid@10.0.0
-- eslint-config-next@16.3.1
+- eslint-config-next@16.3.8
 - eslint@9.39.5
-- jotai@2.20.2
-- next@16.3.1
-- prisma@7.9.1
-- react-dom@19.2.8
-- react@19.2.8
+- jotai@3.0.1
+- next@16.3.8
+- prisma@7.10.0
+- react-dom@19.3.0
+- react@19.3.0
 - typescript@6.0.3
 - uuid@14.0.2
 
@@ -91,6 +91,22 @@ npx prisma generate
 ```bash
 # NEXT_PUBLIC を前置した環境変数はクライアントサイドに露出する 
 NEXT_PUBLIC_API_URL=http://localhost:3000/
+```
+
+- `npm install`時に以下のような警告が出た場合、使用中の npm の ver仕様によって未承認の依存パッケージのスクリプトをブロックしている。パッケージ名やバージョンは環境により異なる。
+```text
+npm warn install-scripts 4 packages had install scripts blocked because they are not covered by allowScripts:
+npm warn install-scripts   prisma@7.10.0 (preinstall: node scripts/preinstall-entry.js)
+npm warn install-scripts   better-sqlite3@12.11.1 (install: prebuild-install || node-gyp rebuild --release)
+npm warn install-scripts   unrs-resolver@1.12.2 (postinstall: node postinstall.js)
+npm warn install-scripts   @prisma/engines@7.10.0 (postinstall: node scripts/postinstall.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+```
+警告に表示されたパッケージのうち、以下のPrisma関連パッケージを承認して`better-sqlite3`を再ビルドする
+```bash
+npm install-scripts approve better-sqlite3 prisma @prisma/engines
+npm rebuild better-sqlite3
 ```
 
 - `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
