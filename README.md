@@ -101,6 +101,22 @@ npx prisma generate
 NEXT_PUBLIC_API_URL=http://localhost:3000/
 ```
 
+- `npm install`時に以下のような警告が出た場合、使用中の npm の ver仕様によって未承認の依存パッケージのスクリプトをブロックしている。パッケージ名やバージョンは環境により異なる。
+```text
+npm warn install-scripts 4 packages had install scripts blocked because they are not covered by allowScripts:
+npm warn install-scripts   prisma@7.10.0 (preinstall: node scripts/preinstall-entry.js)
+npm warn install-scripts   better-sqlite3@12.11.1 (install: prebuild-install || node-gyp rebuild --release)
+npm warn install-scripts   unrs-resolver@1.12.2 (postinstall: node postinstall.js)
+npm warn install-scripts   @prisma/engines@7.10.0 (postinstall: node scripts/postinstall.js)
+npm warn install-scripts
+npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+```
+警告に表示されたパッケージのうち、以下のPrisma関連パッケージを承認して`better-sqlite3`を再ビルドする
+```bash
+npm install-scripts approve better-sqlite3 prisma @prisma/engines
+npm rebuild better-sqlite3
+```
+
 - `Prisma`クライアントを更新してスキーマを反映（`npx prisma generate`を実行）
 ```bash
 # 1. Prisma migration を実行してテーブルを作成
