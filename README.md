@@ -54,29 +54,29 @@
 
 ## 技術構成
 - @eslint/eslintrc@3.3.7
-- @prisma/adapter-better-sqlite3@7.10.0
-- @prisma/client@7.10.0
-- @types/node@26.6.4
+- @prisma/adapter-better-sqlite3@7.10.1
+- @prisma/client@7.10.1
+- @types/node@26.6.6
 - @types/react-dom@19.3.0
 - @types/react@19.3.0
 - @types/uuid@10.0.0
-- @typescript-eslint/eslint-plugin@8.71.1
-- @typescript-eslint/parser@8.71.1
-- eslint-config-next@16.4.0
+- @typescript-eslint/eslint-plugin@8.72.1
+- @typescript-eslint/parser@8.72.1
+- eslint-config-next@16.4.3
 - eslint@9.39.5
 - jotai@3.0.1
-- next@16.4.0
-- prisma@7.10.0
-- react-dom@19.3.0
-- react@19.3.0
+- next@16.4.3
+- prisma@7.10.1
+- react-dom@19.3.1
+- react@19.3.1
 - typescript@6.0.3
-- uuid@14.0.2
+- uuid@14.0.3
 
 ### overrides 設定について
 - `postcss`: `^8.5.18`
 - `@prisma/config`: `{ "deepmerge-ts": "^8.0.0" }`
 - `mysql2`: `^3.24.5`（Prisma CLI 内部の間接依存における脆弱性 GHSA-3f6p-5ww8-9rcr 解消のため適用。親パッケージである Prisma が mysql2 3.24.x 以降に追従した段階で削除予定）
-- `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`: `^8.71.1`（`eslint-config-next@16.4.0` 内部の `typescript-eslint` との ERESOLVE 競合を解消し、最新安定版へ統一するために適用。親パッケージが追従した段階で削除予定）
+- `@typescript-eslint/eslint-plugin`, `@typescript-eslint/parser`: `^8.72.1`（`eslint-config-next@16.4.3` 内部の `typescript-eslint` との ERESOLVE 競合を解消し、最新安定版へ統一するために適用。親パッケージが追従した段階で削除予定）
 
 ---
 
